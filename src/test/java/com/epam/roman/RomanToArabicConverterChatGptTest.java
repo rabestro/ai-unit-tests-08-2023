@@ -1,4 +1,4 @@
-package org.epam.roman;
+package com.epam.roman;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

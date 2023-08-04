@@ -1,4 +1,4 @@
-package org.epam.roman;
+package com.epam.roman;
 
 import java.util.Map;
 import java.util.function.ToIntFunction;
