@@ -49,7 +49,7 @@ public class ForthCore implements ForthEngine {
         if (":".equals(tokens.get(0))) {
             defineWord(tokens);
         } else {
-            tokens.forEach(this);
+            compile(tokens).accept(this);
         }
     }
 
