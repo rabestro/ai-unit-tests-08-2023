@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 
 import static com.epam.forth.word.ForthWord.isNumber;
 
-public class ForthCore implements ForthEngine {
+public final class ForthCore implements ForthEngine {
     private final Deque<Integer> stack = new ArrayDeque<>();
     private final Map<String, Consumer<ForthStack>> words;
 
