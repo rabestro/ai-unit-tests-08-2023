@@ -2,7 +2,7 @@ package com.epam.forth.word;
 
 import com.epam.forth.ForthStack;
 
-public class Division implements ForthWord {
+public final class Division implements ForthWord {
     @Override
     public void accept(ForthStack stack) {
         stack.ensureSize(2, "Division requires that the stack contain at least 2 values");

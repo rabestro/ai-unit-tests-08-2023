@@ -4,6 +4,7 @@ package com.epam.forth;
 import com.epam.forth.word.ForthWord;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.function.Consumer;
 
 import static com.epam.forth.word.ForthWord.isNumber;
 
-public class ForthCore implements ForthEngine {
+public final class ForthCore implements ForthEngine {
     private final Deque<Integer> stack = new ArrayDeque<>();
     private final Map<String, Consumer<ForthStack>> words;
 
@@ -43,8 +44,13 @@ public class ForthCore implements ForthEngine {
     }
 
     @Override
-    public void accept(String token) {
-        compileToken(token).accept(this);
+    public void accept(String command) {
+        var tokens = Arrays.asList(command.toLowerCase().split(" "));
+        if (":".equals(tokens.get(0))) {
+            defineWord(tokens);
+        } else {
+            compile(tokens).accept(this);
+        }
     }
 
     @Override
@@ -52,26 +58,29 @@ public class ForthCore implements ForthEngine {
         return List.copyOf(stack);
     }
 
-    @Override
-    public void accept(String word, List<String> tokens) {
-        validateWord(word);
-        var compiledAction = tokens.stream()
-                .map(this::compileToken)
+    private void defineWord(List<String> tokens) {
+        var word = validatedWord(tokens.get(1));
+        var definition = tokens.subList(2, tokens.size() - 1);
+        words.put(word, compile(definition));
+    }
+
+    private Consumer<ForthStack> compile(List<String> tokens) {
+        return tokens.stream()
+                .map(this::compile)
                 .reduce(Consumer::andThen)
-                .orElse(ForthWord.undefinedWord(word));
-        words.put(word, compiledAction);
+                .orElseThrow();
     }
 
-    private Consumer<ForthStack> compileToken(String token) {
-        if (isNumber.test(token)) {
-            return ForthWord.number(token);
-        }
-        return words.getOrDefault(token, ForthWord.undefinedWord(token));
+    private Consumer<ForthStack> compile(String token) {
+        return isNumber.test(token)
+                ? ForthWord.number(token)
+                : words.getOrDefault(token, ForthWord.undefinedWord(token));
     }
 
-    private void validateWord(String word) {
+    private String validatedWord(String word) {
         if (isNumber.test(word)) {
             throw new IllegalArgumentException("Cannot redefine numbers");
         }
+        return word;
     }
 }
