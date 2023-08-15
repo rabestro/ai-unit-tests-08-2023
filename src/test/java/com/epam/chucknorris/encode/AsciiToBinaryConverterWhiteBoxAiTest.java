@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class BinaryConverterWhiteBoxAiTest {
+class AsciiToBinaryConverterWhiteBoxAiTest {
 
     @DisplayName("Convert a string to binary using ASCII encoding")
     @ParameterizedTest(name = "Test case: {0} => ASCII string: {1}, Expected Binary: {2}")
@@ -18,7 +18,7 @@ class BinaryConverterWhiteBoxAiTest {
                 Text special characters      | @#$ | 100000001000110100100
             """)
     void apply(String scenario, String text, String expectedBinary) {
-        var binaryConverter = new BinaryConverter();
+        var binaryConverter = new AsciiToBinaryConverter();
         var actualBinary = binaryConverter.apply(text);
         assertEquals(expectedBinary, actualBinary);
     }
@@ -32,7 +32,7 @@ class BinaryConverterWhiteBoxAiTest {
                 Character @                  | 64 | 1000000
             """)
     void charToBinary(String scenario, int character, String expectedBinary) {
-        var binaryConverter = new BinaryConverter();
+        var binaryConverter = new AsciiToBinaryConverter();
         var actualBinary = binaryConverter.charToBinary(character);
         assertEquals(expectedBinary, actualBinary);
     }
