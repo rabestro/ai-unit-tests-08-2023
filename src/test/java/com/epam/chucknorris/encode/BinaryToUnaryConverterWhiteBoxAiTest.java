@@ -7,9 +7,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Unary Converter Test class")
-class UnaryConverterWhiteBoxAiTest {
+class BinaryToUnaryConverterWhiteBoxAiTest {
 
-    UnaryConverter unaryConverter = new UnaryConverter();
+    BinaryToUnaryConverter binaryToUnaryConverter = new BinaryToUnaryConverter();
 
     @DisplayName("Tests Unary Converter apply method.")
     @ParameterizedTest(name = "{index} => the binary sequence {0}:{1}")
@@ -24,7 +24,7 @@ class UnaryConverterWhiteBoxAiTest {
         more complex binary sequence                  |    110011001 |  '0 00 00 00 0 00 00 00 0 0'
     """)
     void applyTest(String scenario, String binarySequence, String expectedUnarySequence) {
-        var result = unaryConverter.apply(binarySequence);
+        var result = binaryToUnaryConverter.apply(binarySequence);
         assertThat(result).isEqualTo(expectedUnarySequence);
     }
     
@@ -37,7 +37,7 @@ class UnaryConverterWhiteBoxAiTest {
         single binary sequence with 1's only        |    1111      |  '0 0000'
     """)
     void convertBinaryToUnaryTest(String scenario, String binarySequence, String expectedUnarySequence) {
-        var result = unaryConverter.convertBinaryToUnary(binarySequence);
+        var result = binaryToUnaryConverter.convertBinaryToUnary(binarySequence);
         assertThat(result).isEqualTo(expectedUnarySequence);
     }
 }
