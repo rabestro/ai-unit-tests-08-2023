@@ -1,13 +1,16 @@
 package com.epam.flipflop;
 
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class FlipFlopPredicateDiffblueTest {
     /**
@@ -15,21 +18,15 @@ class FlipFlopPredicateDiffblueTest {
      */
     @Test
     void testConstructor() {
-        // TODO: Complete this test.
-        //   Reason: R002 Missing observers.
-        //   Diffblue Cover was unable to create an assertion.
-        //   Add getters for the following fields or make them package-private:
-        //     FlipFlopPredicate.lhs
-        //     FlipFlopPredicate.rhs
-        //     FlipFlopPredicate.state
-
         // Arrange
         Predicate<Object> lhs = mock(Predicate.class);
         Predicate<Object> rhs = mock(Predicate.class);
 
         // Act
-        new FlipFlopPredicate<>(lhs, rhs);
+        FlipFlopPredicate<Object> actualFlipFlopPredicate = new FlipFlopPredicate<>(lhs, rhs);
 
+        // Assert
+        assertFalse(actualFlipFlopPredicate.state);
     }
 
     /**
@@ -52,6 +49,7 @@ class FlipFlopPredicateDiffblueTest {
         assertTrue(actualTestResult);
         verify(lhs).test(Mockito.<Object>any());
         verify(rhs).test(Mockito.<Object>any());
+        assertFalse(flipFlopPredicate.state);
     }
 
     /**
@@ -73,6 +71,7 @@ class FlipFlopPredicateDiffblueTest {
         // Assert
         assertFalse(actualTestResult);
         verify(lhs).test(Mockito.<Object>any());
+        assertFalse(flipFlopPredicate.state);
     }
 
     /**
@@ -95,6 +94,7 @@ class FlipFlopPredicateDiffblueTest {
         assertTrue(actualTestResult);
         verify(lhs).test(Mockito.<Object>any());
         verify(rhs).test(Mockito.<Object>any());
+        assertTrue(flipFlopPredicate.state);
     }
 
     /**
@@ -119,5 +119,6 @@ class FlipFlopPredicateDiffblueTest {
         assertTrue(actualTestResult);
         verify(lhs).test(Mockito.<Object>any());
         verify(rhs, atLeast(1)).test(Mockito.<Object>any());
+        assertTrue(flipFlopPredicate.state);
     }
 }
