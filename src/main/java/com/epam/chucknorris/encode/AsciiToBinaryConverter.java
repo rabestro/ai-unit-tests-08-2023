@@ -9,7 +9,7 @@ import static java.util.stream.Collectors.joining;
  * This class implements the UnaryOperator interface, allowing it to be used as a function
  * to convert a string using the apply method.
  */
-public final class BinaryConverter implements UnaryOperator<String> {
+public final class AsciiToBinaryConverter implements UnaryOperator<String> {
     private static final int HIGH_BIT = 0x80;
     private static final int ASCII_MASK = 0x7F;
 

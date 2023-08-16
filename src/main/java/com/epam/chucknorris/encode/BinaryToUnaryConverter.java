@@ -6,9 +6,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 
-public final class UnaryConverter implements UnaryOperator<String> {
+public final class BinaryToUnaryConverter implements UnaryOperator<String> {
     private static final Pattern PATTERN = Pattern.compile("0+|1+");
-
 
     @Override
     public java.lang.String apply(String binaryRepresentation) {
