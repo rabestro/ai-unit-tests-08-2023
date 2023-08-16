@@ -1,11 +1,11 @@
 package com.epam.forth.word;
 
-import com.epam.forth.ForthStack;
+import java.util.Deque;
 
-public final class Division implements ForthWord {
+public class Division implements ForthWord {
     @Override
-    public void accept(ForthStack stack) {
-        stack.ensureSize(2, "Division requires that the stack contain at least 2 values");
+    public void accept(Deque<Integer> stack) {
+        ForthWord.ensureSize(stack, 2, "Division requires that the stack contain at least 2 values");
         int divisor = stack.pop();
         int dividend = stack.pop();
         if (divisor == 0) {

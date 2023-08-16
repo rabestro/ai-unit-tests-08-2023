@@ -1,11 +1,11 @@
 package com.epam.forth.word;
 
-import com.epam.forth.ForthStack;
+import java.util.Deque;
 
-public final class Multiplication implements ForthWord {
+public class Multiplication implements ForthWord {
     @Override
-    public void accept(ForthStack stack) {
-        stack.ensureSize(2, "Multiplication requires that the stack contain at least 2 values");
+    public void accept(Deque<Integer> stack) {
+        ForthWord.ensureSize(stack, 2, "Multiplication requires that the stack contain at least 2 values");
         stack.push(stack.pop() * stack.pop());
     }
 }
