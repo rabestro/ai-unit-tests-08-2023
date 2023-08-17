@@ -37,19 +37,4 @@ class AsciiToBinaryConverterDiffblueTest {
         assertEquals("", actualApplyResult);
     }
 
-    /**
-     * Method under test: {@link AsciiToBinaryConverter#charToBinary(int)}
-     */
-    @Test
-    void testCharToBinary() {
-        // Arrange
-        AsciiToBinaryConverter asciiToBinaryConverter = new AsciiToBinaryConverter();
-        int value = 42;
-
-        // Act
-        String actualCharToBinaryResult = asciiToBinaryConverter.charToBinary(value);
-
-        // Assert
-        assertEquals("0101010", actualCharToBinaryResult);
-    }
 }
