@@ -4,7 +4,11 @@ A Comparative Analysis of AI-Based Unit Test Generation Tools for Java Applicati
 ## Introduction
 
 The purpose of this repository is to compare the results of various programs for generating unit tests. The programs are:
-- [DiffBlue](https://www.diffblue.com/)
+- [DiffBlue]
 - EPAM AI Dial
 - Microsoft CopilotX
 - JetBrains AI Assistant 
+
+
+
+[DiffBlue]: https://www.diffblue.com/
