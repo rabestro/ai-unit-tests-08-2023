@@ -1,4 +1,4 @@
-package com.epam.rockpaperscissors.dice;
+package com.epam.dice;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -6,24 +6,19 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.IntStream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("AbstractDice White Box AI Test")
 class AbstractDiceWhiteBoxAiTest {
-    private static class ConcreteDice extends AbstractDice {
-        ConcreteDice(int sides) {
-            super(sides);
-        }
-    }
-
     @DisplayName("Creating AbstractDice for a valid number of sides, expecting non-null:")
     @ParameterizedTest(name = "[{index}] Test with sides: {0}")
     @ValueSource(ints = {1, 6, Integer.MAX_VALUE})
     void creatingAbstractDiceForValidNumberOfSidesExpectingNonNull(int sides) {
         var dice = new ConcreteDice(sides);
         assertThat(dice)
-            .as("AbstractDice object must not be null when created with " + sides + " side(s)")
-            .isNotNull();
+                .as("AbstractDice object must not be null when created with " + sides + " side(s)")
+                .isNotNull();
     }
 
     @DisplayName("Rolling a 1-sided dice 100 times, expecting 1 every time:")
@@ -33,8 +28,8 @@ class AbstractDiceWhiteBoxAiTest {
         IntStream.range(0, 100).forEach(x -> {
             var rollValue = dice.roll();
             assertThat(rollValue)
-                .as("Roll value must always be 1 for a 1-sided dice")
-                .isEqualTo(1);
+                    .as("Roll value must always be 1 for a 1-sided dice")
+                    .isEqualTo(1);
         });
     }
 
@@ -45,8 +40,14 @@ class AbstractDiceWhiteBoxAiTest {
         IntStream.range(0, 100).forEach(x -> {
             var rollValue = dice.roll();
             assertThat(rollValue)
-                .as("Roll value must be between 1 and 6 (inclusive) for a 6-sided dice")
-                .isBetween(1, 6);
+                    .as("Roll value must be between 1 and 6 (inclusive) for a 6-sided dice")
+                    .isBetween(1, 6);
         });
+    }
+
+    private static class ConcreteDice extends AbstractDice {
+        ConcreteDice(int sides) {
+            super(sides);
+        }
     }
 }
