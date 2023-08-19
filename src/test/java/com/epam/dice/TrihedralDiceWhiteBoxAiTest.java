@@ -1,4 +1,4 @@
-package com.epam.rockpaperscissors.dice;
+package com.epam.dice;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

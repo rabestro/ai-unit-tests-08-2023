@@ -1,4 +1,4 @@
-package com.epam.rockpaperscissors;
+package com.epam.dice;
 
 public enum Shape {
     ROCK, PAPER, SCISSORS;

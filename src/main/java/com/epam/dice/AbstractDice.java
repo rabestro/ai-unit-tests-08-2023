@@ -1,4 +1,4 @@
-package com.epam.rockpaperscissors.dice;
+package com.epam.dice;
 
 import java.util.random.RandomGenerator;
 
