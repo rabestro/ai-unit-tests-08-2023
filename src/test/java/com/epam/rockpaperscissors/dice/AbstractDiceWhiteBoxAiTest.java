@@ -1,57 +1,52 @@
 package com.epam.rockpaperscissors.dice;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-import java.util.SplittableRandom;
-import java.util.stream.Stream;
-import java.util.random.RandomGenerator;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.stream.IntStream;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("AbstractDice White Box AI Test")
 class AbstractDiceWhiteBoxAiTest {
-
-    private static final long seed = 1347L;
-    private static final RandomGenerator seededRg = new SplittableRandom(seed);
-
-    static Stream<Object[]> data() { 
-	   var defaultRg = RandomGenerator.getDefault();
-        return Stream.of(
-            new Object[]{"Test with minimum possible sides (1)",
-                         1, defaultRg, 1, 1},
-            new Object[]{"Test with 6 sides (common dice)",
-                         6, defaultRg, 1, 6},
-            new Object[]{"Test with some arbitrary larger number of sides",
-                         100, defaultRg, 1, 100},
-            new Object[]{"Test with a specific seed for SplittableRandom",
-					     10, seededRg, seedGeneratedOutcome(seededRg, 10)[0], seedGeneratedOutcome(seededRg, 10)[1]}
-        );
-    }
-
-   private static int[] seedGeneratedOutcome(RandomGenerator rg, int sides) {
-        int minimum = rg.nextInt(sides) + 1;
-        int maximum = minimum;
-        for (int i = 1; i < 100; i++) {
-            int current = rg.nextInt(sides) + 1;
-            if (current < minimum) {
-                minimum = current;
-            } else if (current > maximum) {
-                maximum = current;
-            }
+    private static class ConcreteDice extends AbstractDice {
+        ConcreteDice(int sides) {
+            super(sides);
         }
-        return new int[] {minimum, maximum};
     }
 
-    @DisplayName("Rolls dice and verifies the results:")
-    @ParameterizedTest(name = "[{index}] {0}")
-    @MethodSource("data")
-    void rollsDiceAndVerifies(String scenario, int sides, RandomGenerator rg, int minExpected, int maxExpected) {
-        var dice = new AbstractDice(sides, rg) {};
+    @DisplayName("Creating AbstractDice for a valid number of sides, expecting non-null:")
+    @ParameterizedTest(name = "[{index}] Test with sides: {0}")
+    @ValueSource(ints = {1, 6, Integer.MAX_VALUE})
+    void creatingAbstractDiceForValidNumberOfSidesExpectingNonNull(int sides) {
+        var dice = new ConcreteDice(sides);
+        assertThat(dice)
+            .as("AbstractDice object must not be null when created with " + sides + " side(s)")
+            .isNotNull();
+    }
 
-        var rollResult = dice.roll();
-        assertThat(rollResult)
-            .as("In scenario '%s', the result '%d' should be in the inclusive range [%d, %d]", 
-                 scenario, rollResult, minExpected, maxExpected)
-            .isBetween(minExpected, maxExpected);
+    @DisplayName("Rolling a 1-sided dice 100 times, expecting 1 every time:")
+    @Test
+    void rollingThe1SidedDiceExpecting1EveryTime() {
+        var dice = new ConcreteDice(1);
+        IntStream.range(0, 100).forEach(x -> {
+            var rollValue = dice.roll();
+            assertThat(rollValue)
+                .as("Roll value must always be 1 for a 1-sided dice")
+                .isEqualTo(1);
+        });
+    }
+
+    @DisplayName("Rolling a 6-sided dice 100 times, expecting a number in the range 1-6 every time:")
+    @Test
+    void rollingThe6SidedDiceExpectingNumberInCorrectRange() {
+        var dice = new ConcreteDice(6);
+        IntStream.range(0, 100).forEach(x -> {
+            var rollValue = dice.roll();
+            assertThat(rollValue)
+                .as("Roll value must be between 1 and 6 (inclusive) for a 6-sided dice")
+                .isBetween(1, 6);
+        });
     }
 }
