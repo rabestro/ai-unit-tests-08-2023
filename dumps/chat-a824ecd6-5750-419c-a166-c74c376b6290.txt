@@ -1,0 +1,178 @@
+Chat 'ChatTitle(text=Testing Shape Enum in Java 17, isCustom=true)' (a824ecd6-5750-419c-a166-c74c376b6290)
+Context:
+You are working on project that uses Java SDK version 17..
+Messages: 6
+==========================================================================================================
+
+User: 
+Act as an experienced Java developer.
+Use Java 17 and all the features that this version has.
+
+For the given code, your task is to write a unit test with 100% coverage.
+Generate self-documenting, best-practice, parameterized, readable test code.
+Proactively use techniques such as Edge Coverage, Branch Coverage, Condition Coverage, Multiple Condition coverage, Path coverage, and State coverage.
+
+- use JUnit 5 framework with AssertJ assertions;
+- use `@DisplayName` annotation;
+- when using parameterized tests, always customize display names;
+- if the parameters are primitive types or strings prefer @CsvSource annotation
+- if the parameters are classes prefer @MethodSource annotation
+- for @CsvSource use delimiter = '|' and textBlock
+  Example:
+```java
+@DisplayName("Calculates the sum of:")
+@ParameterizedTest(name = "[{index}] calculates the sum of {0}: ({1}, {2})")
+@CsvSource(delimiter = '|', textBlock = """
+    positive numbers      |   10  |      6  |   16
+    positive and negative |   -4  |      2  |   -2
+    negative numbers      |   -6  |   -100  | -106
+""")
+void calculatesSum(String scenario, int a, int b, int expectedResult) {
+    var actual = calculator.sum(a, b);
+    assertThat(actual)
+			.as("The sum of %d and %d should be %d", a, b, expectedResult)
+			.isEqualTo(expectedResult);
+}
+```
+- align delimiters inside textBlock to improve readability
+- inside textBlock use ' instead of "
+- for exceptions or specific single test case use ordinary test method;
+- inside test methods use `var` keyword instead of the fully qualified type name;
+- omit the public modifier for test classes, test methods, and lifecycle methods;
+- the test class name must end with the suffix `WhiteBoxAiTest`;
+- the test class must be in the same package as the code under test;
+- If there is a class unknown to you, ask me for a description of this class before you generate unit tests.
+
+Your first step is to generate test cases and ask me if they are good. 
+Please print these test cases as a table.
+
+When I confirm that the test cases are good, come to the second step and generate the test code. 
+
+After you create the test: 
+- ensure the test has all required imports; 
+- the test complies with all the requirements listed initially.
+
+
+```Java
+package com.epam.rockpaperscissors;
+
+public enum Shape {
+    ROCK, PAPER, SCISSORS;
+
+    public boolean beats(Shape other) {
+        return switch (this) {
+            case ROCK -> other == SCISSORS;
+            case PAPER -> other == ROCK;
+            case SCISSORS -> other == PAPER;
+        };
+    }
+
+    public static Shape from(String shape) {
+        return switch (shape) {
+            case "rock" -> ROCK;
+            case "paper" -> PAPER;
+            case "scissors" -> SCISSORS;
+            default -> throw new IllegalArgumentException("Unknown shape: " + shape);
+        };
+    }
+}
+
+```
+    
+
+Assistant: 
+Thank you for the detailed requirements. I will take them into careful consideration while writing the unit tests.
+
+Here are the test cases for the `Shape` enum in tabular form:
+
+| Test Case               | Input(s)             | Expected Outcome | Scenario/Condition                                           |
+|-------------------------|----------------------|------------------|--------------------------------------------------------------|
+| rockBeatsScissors       | ROCK, SCISSORS       | true             | The shape 'rock' should beat 'scissors'.                     |
+| paperBeatsRock          | PAPER, ROCK          | true             | The shape 'paper' should beat 'rock'.                        |
+| scissorsBeatsPaper      | SCISSORS, PAPER      | true             | The shape 'scissors' should beat 'paper'.                    |
+| equalShapesDontBeatEachOther | ROCK, ROCK        | false            | The same shape shouldn't beat each other.                    |
+| fromRock                | "rock"               | ROCK             | should return `ROCK` when the input is the string "rock".    |
+| fromPaper               | "paper"              | PAPER            | should return `PAPER` when the input is the string "paper".  |
+| fromScissors            | "scissors"           | SCISSORS         | should return `SCISSORS` when the input is the string "scissors". |
+| fromUnknownShape        | "unknown"            | IllegalArgumentException  | should throw an exception when the input is an unknown string. |
+
+Now, you need to review these test cases. The test code will be written after your approval.
+
+User: 
+add more cases for false
+
+Assistant: 
+Absolutely, I can add some more test cases focused on the outcome being `false`. Here are the additional test cases:
+
+| Test Case               | Input(s)             | Expected Outcome | Scenario/Condition                                           |
+|-------------------------|----------------------|------------------|--------------------------------------------------------------|
+| rockDoesNotBeatPaper    | ROCK, PAPER          | false            | The shape 'rock' should not beat 'paper'.                    |
+| paperDoesNotBeatScissors| PAPER, SCISSORS      | false            | The shape 'paper' should not beat 'scissors'.                |
+| scissorsDoesNotBeatRock | SCISSORS, ROCK       | false            | The shape 'scissors' should not beat 'rock'.                 |
+
+I hope these test cases are as per your requirements. Please confirm this so that I can proceed with writing the test code.
+
+User: 
+fine! lets' go
+
+Assistant: 
+Great! Let's proceed to the generation of the tests according to the provided test cases. Here's a skeleton of the `ShapeWhiteBoxAiTest` class.
+
+```java
+package com.epam.rockpaperscissors;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.api.Assertions;
+import static org.assertj.core.api.Assertions.*;
+
+@DisplayName("Shape tests:")
+class ShapeWhiteBoxAiTest {
+
+    @DisplayName("beats function:")
+    @ParameterizedTest(name = "[{index}] {0}: ({1}, {2})")
+    @CsvSource(delimiter = '|', textBlock = """
+        rock beats scissors    |   ROCK  |  SCISSORS  |  true
+        paper beats rock       |   PAPER |  ROCK      |  true
+        scissors beats paper   | SCISSORS|  PAPER     |  true
+        same shapes don't beat |   ROCK  |  ROCK      |  false
+        rock doesn't beat paper|   ROCK  |  PAPER     |  false
+        paper doesn't beat scissors| PAPER |  SCISSORS |  false
+        scissors doesn't beat rock| SCISSORS | ROCK    |  false
+        """)
+    void beatsFunctionTest(String scenario, Shape shape1, Shape shape2, boolean expectedResult) {
+        var actual = shape1.beats(shape2);
+        assertThat(actual)
+			.as("%s should return %b", scenario, expectedResult)
+			.isEqualTo(expectedResult);
+    }
+
+    @DisplayName("from function:")
+    @ParameterizedTest(name = "[{index}] from {0} maps to: {1}")
+    @CsvSource(delimiter = '|', textBlock = """
+        rock    | "rock"     | ROCK
+        paper   | "paper"    | PAPER
+        scissors| "scissors" | SCISSORS
+        """)
+    void fromFunctionMapsToString(String scenario, String input, Shape expectedResult) {
+        var actual = Shape.from(input);
+        assertThat(actual)
+			.as("String '%s' should map to shape: %s", input, expectedResult)
+			.isEqualTo(expectedResult);
+    }
+
+    @DisplayName("from function throws on unknown shape")
+    @Test
+    void fromFunctionThrowsIllegalArgumentException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Shape.from("unknown"));
+    }
+}
+```
+
+As you mentioned that each case of `IllegalArgumentException` calls for a separate @Test annotation, I used one for the "unknown" shape string. The tests mentioned above cover 100% of the `Shape` enum codebase according to different kinds of code coverage you indicated.
+
+For generating the tests, necessary assertions from both `junit.jupiter.api.Assertions` and `org.assertj.core.api.Assertions` packages were imported to be able to properly handle the exceptions and validate the output.
+
+Please verify if the code meets your requirements mentioned above. If there's something that needs to be changed or adjusted, let me know!
+

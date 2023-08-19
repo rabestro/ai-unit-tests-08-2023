@@ -289,7 +289,7 @@ package com.epam.rockpaperscissors.dice;
 import java.util.function.Supplier;
 
 /**
- * A FortuneWheel is a supplier of values chosen randomly from an enum.
+ * A WheelOfFortune is a supplier of values chosen randomly from an enum.
  *
  * @param <T> the type parameter representing the enum
  */
@@ -338,31 +338,31 @@ import java.time.DayOfWeek;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-@DisplayName("FortuneWheel White Box AI Test")
+@DisplayName("WheelOfFortune White Box AI Test")
 class FortuneWheelWhiteBoxAiTest {
 
-    @DisplayName("Creating FortuneWheel for an enum with values, expecting a non-null object:")
+    @DisplayName("Creating WheelOfFortune for an enum with values, expecting a non-null object:")
     @Test
     void creatingFortuneWheelWithEnumDayOfWeekExpectingNotNull() {
         var wheel = FortuneWheel.of(DayOfWeek.class);
         assertThat(wheel)
-                .as("FortuneWheel should not be null for enum with values")
+                .as("WheelOfFortune should not be null for enum with values")
                 .isNotNull();
     }
 
     //Assuming we have an empty enum class as follows:
     //public enum EmptyEnum {}
 
-    @DisplayName("Creating FortuneWheel for an empty enum, expecting IllegalArgumentException:")
+    @DisplayName("Creating WheelOfFortune for an empty enum, expecting IllegalArgumentException:")
     @Test
     void creatingFortuneWheelWithEmptyEnumExpectingException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .as("Expected IllegalArgumentException for empty enum")
                 .isThrownBy(() -> FortuneWheel.of(EmptyEnum.class))
-                .withMessageContaining("Enum class com.epam.rockpaperscissors.dice.FortuneWheelWhiteBoxAiTest.EmptyEnum has no values");
+                .withMessageContaining("Enum class com.epam.rockpaperscissors.dice.WheelOfFortuneWhiteBoxAiTest.EmptyEnum has no values");
     }
 
-    @DisplayName("Calling get() on a FortuneWheel of an enum with values, expecting one of the enum's values:")
+    @DisplayName("Calling get() on a WheelOfFortune of an enum with values, expecting one of the enum's values:")
     @Test
     void callingGetOnFortuneWheelOfEnumWithValuesExpectingValue() {
         var wheel = FortuneWheel.of(DayOfWeek.class);
@@ -397,29 +397,29 @@ import java.time.DayOfWeek;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-@DisplayName("FortuneWheel White Box AI Test")
+@DisplayName("WheelOfFortune White Box AI Test")
 class FortuneWheelWhiteBoxAiTest {
     enum EmptyEnum {}
 
-    @DisplayName("Creating FortuneWheel for an enum with values, expecting a non-null object:")
+    @DisplayName("Creating WheelOfFortune for an enum with values, expecting a non-null object:")
     @Test
     void creatingFortuneWheelWithEnumDayOfWeekExpectingNotNull() {
         var wheel = FortuneWheel.of(DayOfWeek.class);
         assertThat(wheel)
-                .as("FortuneWheel should not be null for enum with values")
+                .as("WheelOfFortune should not be null for enum with values")
                 .isNotNull();
     }
 
-    @DisplayName("Creating FortuneWheel for an empty enum, expecting IllegalArgumentException:")
+    @DisplayName("Creating WheelOfFortune for an empty enum, expecting IllegalArgumentException:")
     @Test
     void creatingFortuneWheelWithEmptyEnumExpectingException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .as("Expected IllegalArgumentException for empty enum")
                 .isThrownBy(() -> FortuneWheel.of(EmptyEnum.class))
-                .withMessageContaining("Enum class com.epam.rockpaperscissors.dice.FortuneWheelWhiteBoxAiTest.EmptyEnum has no values");
+                .withMessageContaining("Enum class com.epam.rockpaperscissors.dice.WheelOfFortuneWhiteBoxAiTest.EmptyEnum has no values");
     }
 
-    @DisplayName("Calling get() on a FortuneWheel of an enum with values, expecting one of the enum's values:")
+    @DisplayName("Calling get() on a WheelOfFortune of an enum with values, expecting one of the enum's values:")
     @Test
     void callingGetOnFortuneWheelOfEnumWithValuesExpectingValue() {
         var wheel = FortuneWheel.of(DayOfWeek.class);
@@ -437,22 +437,22 @@ I have added the `EmptyEnum` directly into the `FortuneWheelWhiteBoxAiTest` clas
 User: 
 java.lang.AssertionError: [Expected IllegalArgumentException for empty enum]
 Expecting throwable message:
-"Enum class com.epam.rockpaperscissors.dice.FortuneWheelWhiteBoxAiTest$EmptyEnum has no values"
+"Enum class com.epam.rockpaperscissors.dice.WheelOfFortuneWhiteBoxAiTest$EmptyEnum has no values"
 to contain:
-"Enum class com.epam.rockpaperscissors.dice.FortuneWheelWhiteBoxAiTest.EmptyEnum has no values"
+"Enum class com.epam.rockpaperscissors.dice.WheelOfFortuneWhiteBoxAiTest.EmptyEnum has no values"
 but did not.
 
 Assistant: 
 Sorry for the confusion. The message isn't quite matching because Java generates different format for nested class path in exception messages. It uses `$` sign instead of `.` sign for separating the outer class and the inner class in the class path. We should be testing the exception message accordingly. Here is the corrected test:
 
 ```java
-    @DisplayName("Creating FortuneWheel for an empty enum, expecting IllegalArgumentException:")
+    @DisplayName("Creating WheelOfFortune for an empty enum, expecting IllegalArgumentException:")
     @Test
     void creatingFortuneWheelWithEmptyEnumExpectingException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .as("Expected IllegalArgumentException for empty enum")
                 .isThrownBy(() -> FortuneWheel.of(EmptyEnum.class))
-                .withMessageContaining("Enum com.epam.rockpaperscissors.dice.FortuneWheelWhiteBoxAiTest$EmptyEnum has no values");
+                .withMessageContaining("Enum com.epam.rockpaperscissors.dice.WheelOfFortuneWhiteBoxAiTest$EmptyEnum has no values");
     }
 ```
 
