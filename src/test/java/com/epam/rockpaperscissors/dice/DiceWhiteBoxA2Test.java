@@ -23,7 +23,9 @@ public class DiceWhiteBoxA2Test {
     void rollTest(String scenario, int sides) {
         var dice = Dice.of(sides);
         var actual = dice.roll();
-        assertThat(actual).as("Roll result should be within 1 and %s", sides).isBetween(1, sides);
+        assertThat(actual)
+                .as("Roll result should be within 1 and %s", sides)
+                .isBetween(1, sides);
     }
 
     @DisplayName("Creating a dice with a custom random generator")
@@ -33,7 +35,9 @@ public class DiceWhiteBoxA2Test {
         RandomGenerator randomGenerator = new Random()::nextInt;
         var dice = Dice.of(sides, randomGenerator);
         var actual = dice.roll();
-        assertThat(actual).as("Roll result should be within 1 and %s", sides).isBetween(1, sides);
+        assertThat(actual)
+                .as("Roll result should be within 1 and %s", sides)
+                .isBetween(1, sides);
     }
 
     @DisplayName("Creating a dice with invalid sides")

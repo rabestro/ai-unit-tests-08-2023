@@ -2,6 +2,9 @@ package com.epam.rockpaperscissors.dice;
 
 import java.util.random.RandomGenerator;
 
+/**
+ * Represents a dice with a specified number of sides.
+ */
 @FunctionalInterface
 public interface Dice {
     int roll();
