@@ -7,32 +7,32 @@ import java.time.DayOfWeek;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-@DisplayName("FortuneWheel White Box AI Test")
-class FortuneWheelWhiteBoxAiTest {
+@DisplayName("WheelOfFortune White Box AI Test")
+class WheelOfFortuneWhiteBoxAiTest {
     enum EmptyEnum {}
 
-    @DisplayName("Creating FortuneWheel for an enum with values, expecting a non-null object:")
+    @DisplayName("Creating WheelOfFortune for an enum with values, expecting a non-null object:")
     @Test
     void creatingFortuneWheelWithEnumDayOfWeekExpectingNotNull() {
-        var wheel = FortuneWheel.of(DayOfWeek.class);
+        var wheel = WheelOfFortune.of(DayOfWeek.class);
         assertThat(wheel)
-                .as("FortuneWheel should not be null for enum with values")
+                .as("WheelOfFortune should not be null for enum with values")
                 .isNotNull();
     }
 
-    @DisplayName("Creating FortuneWheel for an empty enum, expecting IllegalArgumentException:")
+    @DisplayName("Creating WheelOfFortune for an empty enum, expecting IllegalArgumentException:")
     @Test
     void creatingFortuneWheelWithEmptyEnumExpectingException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .as("Expected IllegalArgumentException for empty enum")
-                .isThrownBy(() -> FortuneWheel.of(EmptyEnum.class))
+                .isThrownBy(() -> WheelOfFortune.of(EmptyEnum.class))
                 .withMessageContaining("EmptyEnum has no values");
     }
 
-    @DisplayName("Calling get() on a FortuneWheel of an enum with values, expecting one of the enum's values:")
+    @DisplayName("Calling get() on a WheelOfFortune of an enum with values, expecting one of the enum's values:")
     @Test
     void callingGetOnFortuneWheelOfEnumWithValuesExpectingValue() {
-        var wheel = FortuneWheel.of(DayOfWeek.class);
+        var wheel = WheelOfFortune.of(DayOfWeek.class);
         var value = wheel.get();
         assertThat(value)
                 .as("Wheel roll must be a valid DayOfWeek value")
