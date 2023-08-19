@@ -12,8 +12,8 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@DisplayName("FortuneWheel WhiteBoxAiTest")
-class FortuneWheelWhiteBoxA1Test {
+@DisplayName("WheelOfFortune WhiteBoxAiTest")
+class WheelOfFortuneWhiteBoxA1Test {
 
     static Stream<Arguments> multiValueEnumClassesProvider() {
         return Stream.of(
@@ -29,13 +29,13 @@ class FortuneWheelWhiteBoxA1Test {
         var enumValues = EnumClassWithSingleValue.values();
         var calls = 10;
 
-        var fortuneWheel = FortuneWheel.of(enumClass);
+        var fortuneWheel = WheelOfFortune.of(enumClass);
         var producedValues = IntStream.range(0, calls)
                 .mapToObj(i -> fortuneWheel.get())
                 .toArray();
 
         assertThat(producedValues)
-                .as("FortuneWheel of %s should always produce the same single value: %s", enumClass, enumValues[0])
+                .as("WheelOfFortune of %s should always produce the same single value: %s", enumClass, enumValues[0])
                 .allMatch(value -> value.equals(enumValues[0]));
     }
 
@@ -43,13 +43,13 @@ class FortuneWheelWhiteBoxA1Test {
     @ParameterizedTest(name = "[{index}] ({0}) produces all enum values after {2} calls")
     @MethodSource("multiValueEnumClassesProvider")
     <T extends Enum<T>> void producesAllValuesForMultiValueEnums(Class<T> enumClass, T[] enumValues, int calls) {
-        var fortuneWheel = FortuneWheel.of(enumClass);
+        var fortuneWheel = WheelOfFortune.of(enumClass);
         var producedValues = IntStream.range(0, calls)
                 .mapToObj(i -> fortuneWheel.get())
                 .toArray();
 
         assertThat(producedValues)
-                .as("FortuneWheel of %s should produce all enum values after %d calls", enumClass, calls)
+                .as("WheelOfFortune of %s should produce all enum values after %d calls", enumClass, calls)
                 .containsAnyOf(enumValues);
     }
 
@@ -57,8 +57,8 @@ class FortuneWheelWhiteBoxA1Test {
     @Test
     void throwsExceptionForEmptyEnum() {
         var enumClass = EmptyEnumClass.class;
-        assertThatThrownBy(() -> FortuneWheel.of(enumClass))
-                .as("FortuneWheel of %s should throw IllegalArgumentException", enumClass)
+        assertThatThrownBy(() -> WheelOfFortune.of(enumClass))
+                .as("WheelOfFortune of %s should throw IllegalArgumentException", enumClass)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Enum " + enumClass + " has no values");
     }

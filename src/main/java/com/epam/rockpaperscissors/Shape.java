@@ -11,7 +11,7 @@ public enum Shape {
         };
     }
 
-    public static Shape fromString(String shape) {
+    public static Shape from(String shape) {
         return switch (shape) {
             case "rock" -> ROCK;
             case "paper" -> PAPER;
