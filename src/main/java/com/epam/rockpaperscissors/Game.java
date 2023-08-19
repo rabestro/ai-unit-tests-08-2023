@@ -13,7 +13,7 @@ public final class Game implements Runnable {
     private final Consumer<? super String> output;
     private final ScoreBoard scoreBoard;
     private Shapes shapes;
-    private int rating;
+    int rating;
 
     public Game(Supplier<String> input, Consumer<? super String> output, ScoreBoard scoreBoard) {
         this.input = input;
@@ -30,7 +30,7 @@ public final class Game implements Runnable {
         output.accept("Bye!");
     }
 
-    private void initializeGame() {
+    void initializeGame() {
         output.accept("Enter your name:");
         var name = input.get();
         output.accept("Hello, " + name);
@@ -39,7 +39,7 @@ public final class Game implements Runnable {
         output.accept("Okay, let's start");
     }
 
-    private void oneRound(String userChoice) {
+    void oneRound(String userChoice) {
         if ("!rating".equals(userChoice)) {
             output.accept("Your rating: " + rating);
         } else if (shapes.contains(userChoice)) {
@@ -56,7 +56,7 @@ public final class Game implements Runnable {
         output.accept(result);
     }
 
-    private String determineWinner(String user, String computer) {
+    String determineWinner(String user, String computer) {
         switch (shapes.compare(user, computer)) {
             case 0:
                 rating += POINTS_PER_DRAW;
