@@ -7,6 +7,7 @@ import java.util.function.Supplier;
  *
  * @param <T> the type parameter representing the enum
  */
+@FunctionalInterface
 public interface FortuneWheel<T extends Enum<T>> extends Supplier<T> {
 
     static <T extends Enum<T>> FortuneWheel<T> of(Class<T> enumClass) {
