@@ -30,8 +30,8 @@ Proactively use techniques such as Edge Coverage, Branch Coverage, Condition Cov
 void calculatesSum(String scenario, int a, int b, int expectedResult) {
     var actual = calculator.sum(a, b);
     assertThat(actual)
-			.as("The sum of %d and %d should be %d", a, b, expectedResult)
-			.isEqualTo(expectedResult);
+            .as("The sum of %d and %d should be %d", a, b, expectedResult)
+            .isEqualTo(expectedResult);
 }
 ```
 - align delimiters inside textBlock to improve readability
@@ -756,4 +756,3 @@ Great job
 
 Assistant: 
 Thank you! I'm glad to hear that the tests met your expectations. If you have any other questions, need additional tests, or require assistance with anything else, please don't hesitate to ask. Happy coding!
-
