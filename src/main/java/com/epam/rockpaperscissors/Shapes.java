@@ -21,6 +21,9 @@ public final class Shapes {
     }
 
     int compare(String first, String second) {
+        if (!shapes.contains(first) || !shapes.contains(second)) {
+            throw new IllegalArgumentException("Invalid shapes");
+        }
         if (first.equals(second)) {
             return 0;
         }
