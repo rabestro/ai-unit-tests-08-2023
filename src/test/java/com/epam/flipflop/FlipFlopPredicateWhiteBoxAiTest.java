@@ -1,12 +1,12 @@
 package com.epam.flipflop;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.function.Predicate;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class FlipFlopPredicateWhiteBoxAiTest {
     @DisplayName("Evaluates flip-flop predicate:")
