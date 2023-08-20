@@ -1,9 +1,9 @@
 package com.epam.dice;
 
-import java.awt.Component;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.awt.*;
 
 class WheelOfFortuneDiffblueTest {
     /**
