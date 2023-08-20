@@ -5,7 +5,7 @@ A Comparative Analysis of AI-Based Unit Test Generation Tools for Java Applicati
 
 The purpose of this repository is to compare the results of various programs for generating unit tests. The programs are:
 - [DiffBlue]
-- ChatGPT-4
+- [ChatGPT-4]
 - Microsoft [CopilotX]
 - JetBrains [AI Assistant]
 - [Machinet]
