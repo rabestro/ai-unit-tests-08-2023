@@ -1,73 +1,74 @@
 package leetcode.p100;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("Solution class test suite")
 class SolutionC4Test {
+
     private final Solution solution = new Solution();
 
-    private static Stream<Arguments> provideTestParams() {
-        return Stream.of(
-                Arguments.of("Both trees are null", null, null, true),
-                Arguments.of("First tree is null and the second one isn't",
-                        null,
-                        new TreeNode(1),
-                        false),
-                Arguments.of("Second tree is null and the first one isn't",
-                        new TreeNode(1),
-                        null,
-                        false),
-                Arguments.of("Both trees have one node, and their values are the same",
-                        new TreeNode(1),
-                        new TreeNode(1),
-                        true),
-                Arguments.of("Both trees have one node, and their values differ",
-                        new TreeNode(1),
-                        new TreeNode(2),
-                        false),
-                Arguments.of("Both trees have more than one node, with structures and node values that match",
-                        tree1(),
-                        tree1(),
-                        true),
-                Arguments.of("Both trees have the same structure, but at least one pair of corresponding nodes have different values",
-                        tree1(),
-                        tree2(),
-                        false),
-                Arguments.of("The trees have different structures",
-                        tree1(),
-                        new TreeNode(1),
-                        false)
-        );
+    @Test
+    @DisplayName("Both trees are null")
+    void bothTreesAreNull() {
+        var p = (TreeNode) null;
+        var q = (TreeNode) null;
+
+        assertThat(solution.isSameTree(p, q)).isTrue();
     }
 
-    private static TreeNode tree1() {
-        TreeNode tree = new TreeNode(1);
-        tree.left = new TreeNode(2);
-        tree.right = new TreeNode(3);
-        return tree;
+    @Test
+    @DisplayName("First tree is null, second tree is not")
+    void firstTreeIsNull() {
+        var p = (TreeNode) null;
+        var q = new TreeNode(1);
+
+        assertThat(solution.isSameTree(p, q)).isFalse();
     }
 
-    private static TreeNode tree2() {
-        TreeNode tree = new TreeNode(1);
-        tree.left = new TreeNode(4);
-        tree.right = new TreeNode(3);
-        return tree;
+    @Test
+    @DisplayName("Second tree is null, first tree is not")
+    void secondTreeIsNull() {
+        var p = new TreeNode(1);
+        var q = (TreeNode) null;
+
+        assertThat(solution.isSameTree(p, q)).isFalse();
     }
 
-    @DisplayName("Is same tree test")
-    @ParameterizedTest(name = "[{index}] Scenario: {0}")
-    @MethodSource("provideTestParams")
-    void isSameTree_ShouldCheckIfTwoTreesAreTheSameOrNot(String scenario, TreeNode p, TreeNode q, boolean expectedResult) {
-        var actual = solution.isSameTree(p, q);
-        assertThat(actual)
-                .as("%s. Expected output is %s", scenario, expectedResult)
-                .isEqualTo(expectedResult);
+    @Test
+    @DisplayName("Both trees have the same structure and the same node values")
+    void sameStructureAndValues() {
+        var p = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+        var q = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+
+        assertThat(solution.isSameTree(p, q)).isTrue();
+    }
+
+    @Test
+    @DisplayName("Both trees have the same structure but different node values")
+    void sameStructureDifferentValues() {
+        var p = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+        var q = new TreeNode(1, new TreeNode(4), new TreeNode(3));
+
+        assertThat(solution.isSameTree(p, q)).isFalse();
+    }
+
+    @Test
+    @DisplayName("Both trees have different structures but the same node values")
+    void differentStructureSameValues() {
+        var p = new TreeNode(1, new TreeNode(2), null);
+        var q = new TreeNode(1, null, new TreeNode(2));
+
+        assertThat(solution.isSameTree(p, q)).isFalse();
+    }
+
+    @Test
+    @DisplayName("Both trees have different structures and different node values")
+    void differentStructureAndValues() {
+        var p = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+        var q = new TreeNode(1, new TreeNode(2), new TreeNode(4));
+
+        assertThat(solution.isSameTree(p, q)).isFalse();
     }
 }
