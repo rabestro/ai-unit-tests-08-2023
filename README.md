@@ -4,13 +4,13 @@ A Comparative Analysis of AI-Based Unit Test Generation Tools for Java Applicati
 
 ## Introduction
 
-The purpose of this repository is to compare the results of various programs for generating unit tests. The programs
-are:
-
+The purpose of this repository is to compare the results of various programs for generating unit tests. The programs are:
 - [DiffBlue]
-- EPAM AI Dial
-- Microsoft CopilotX
-- JetBrains AI Assistant
+- [ChatGPT-4]
+- Microsoft [CopilotX]
+- JetBrains [AI Assistant]
+- [Machinet]
+- [Symflower]
 
 ## Logging of sessions
 
@@ -27,3 +27,8 @@ are:
 [2023-08-22]: https://jc-ai.notion.site/2023-08-22-BlackBox-Unit-Test-e424abaeeea94a6b940b4c9d66aa7cea
 
 [DiffBlue]: https://www.diffblue.com/
+[Machinet]: https://www.machinet.net/
+[CopilotX]: https://github.com/features/preview/copilot-x
+[AI Assistant]: https://blog.jetbrains.com/idea/2023/06/ai-assistant-in-jetbrains-ides/
+[Symflower]: https://symflower.com/en/
+[ChatGPT-4]: https://openai.com/gpt-4
