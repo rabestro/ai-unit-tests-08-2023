@@ -1,0 +1,57 @@
+@startuml
+'!pragma useVerticalIf on
+'!pragma useVerticalWhile on
+'!pragma useVerticalSwitch on
+'!pragma useVerticalCase on
+
+header
+RomanToArabicOptimized
+endheader
+
+start
+
+:result = 0
+i = romanNumeral.length();
+
+
+while (i-- > 0)
+    :symbol = romanNumeral.charAt(i);
+
+    switch (symbol?)
+    case ( I )
+        if (result < 5) then (yes)
+            :result += 1;
+        else (no)
+            :result -= 1;
+        endif
+    case ( V )
+        :result += 5;
+    case ( X )
+        if (result < 50)
+            :result += 10;
+        else
+            :result -= 10;
+        endif
+    case ( L )
+        :result += 50;
+    case ( C )
+        if (result < 500)
+            :result += 100;
+        else
+            :result -= 100;
+        endif
+    case ( D )
+        :result += 500;
+    case ( M )
+        :result += 1000;
+    case ( * )
+        #pink:IllegalArgumentException;
+        kill
+    endswitch
+
+endwhile
+
+:return result;
+
+stop
+@enduml
