@@ -1,4 +1,4 @@
-package com.epam.forth.word;
+package exercism.forth.word;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,12 +13,13 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class DivisionWhiteBoxAiTest {
 
     private static Stream<Arguments> provideTestCasesForDivision() {
         return Stream.of(
-                Arguments.of(new ArrayDeque<>(List.of(2, 8)), new ArrayDeque<>(List.of(4))),
+                arguments(new ArrayDeque<>(List.of(2, 8)), new ArrayDeque<>(List.of(4))),
                 Arguments.of(new ArrayDeque<>(List.of(3, -3)), new ArrayDeque<>(List.of(-1))),
                 Arguments.of(new ArrayDeque<>(List.of(5, 0)), new ArrayDeque<>(List.of(0))),
                 Arguments.of(new ArrayDeque<>(List.of(-2, -5)), new ArrayDeque<>(List.of(2)))

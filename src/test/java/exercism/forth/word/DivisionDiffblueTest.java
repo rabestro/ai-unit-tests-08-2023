@@ -1,4 +1,4 @@
-package com.epam.forth.word;
+package exercism.forth.word;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -21,8 +21,8 @@ class DivisionDiffblueTest {
         //   Diffblue Cover tried to run the arrange/act section, but the method under
         //   test threw
         //   java.lang.IllegalStateException: Division requires that the stack contain at least 2 values
-        //       at com.epam.forth.word.ForthWord.ensureSize(ForthWord.java:17)
-        //       at com.epam.forth.word.Division.accept(Division.java:8)
+        //       at exercism.word.forth.ForthWord.ensureSize(ForthWord.java:17)
+        //       at exercism.word.forth.Division.accept(Division.java:8)
         //   See https://diff.blue/R013 to resolve this issue.
 
         // Arrange
@@ -44,8 +44,8 @@ class DivisionDiffblueTest {
         //   Diffblue Cover tried to run the arrange/act section, but the method under
         //   test threw
         //   java.lang.IllegalStateException: Division requires that the stack contain at least 2 values
-        //       at com.epam.forth.word.ForthWord.ensureSize(ForthWord.java:17)
-        //       at com.epam.forth.word.Division.accept(Division.java:8)
+        //       at exercism.word.forth.ForthWord.ensureSize(ForthWord.java:17)
+        //       at exercism.word.forth.Division.accept(Division.java:8)
         //   See https://diff.blue/R013 to resolve this issue.
 
         // Arrange

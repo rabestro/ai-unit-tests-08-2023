@@ -1,4 +1,4 @@
-package com.epam.forth;
+package exercism.forth;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -45,8 +45,8 @@ class ForthEngineDiffblueTest {
         //   test threw
         //   java.lang.ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0
         //       at java.base/java.util.Arrays$ArrayList.get(Arrays.java:4165)
-        //       at com.epam.forth.ForthEngine.isWordDefinition(ForthEngine.java:49)
-        //       at com.epam.forth.ForthEngine.accept(ForthEngine.java:30)
+        //       at exercism.forth.ForthEngine.isWordDefinition(ForthEngine.java:49)
+        //       at exercism.forth.ForthEngine.accept(ForthEngine.java:30)
         //   See https://diff.blue/R013 to resolve this issue.
 
         // Arrange
@@ -69,8 +69,8 @@ class ForthEngineDiffblueTest {
         //   test threw
         //   java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
         //       at java.base/java.util.Arrays$ArrayList.get(Arrays.java:4165)
-        //       at com.epam.forth.ForthEngine.defineWord(ForthEngine.java:53)
-        //       at com.epam.forth.ForthEngine.accept(ForthEngine.java:31)
+        //       at exercism.forth.ForthEngine.defineWord(ForthEngine.java:53)
+        //       at exercism.forth.ForthEngine.accept(ForthEngine.java:31)
         //   See https://diff.blue/R013 to resolve this issue.
 
         // Arrange
@@ -110,8 +110,8 @@ class ForthEngineDiffblueTest {
         //   java.lang.IllegalArgumentException: fromIndex(2) > toIndex(1)
         //       at java.base/java.util.AbstractList.subListRangeCheck(AbstractList.java:509)
         //       at java.base/java.util.AbstractList.subList(AbstractList.java:497)
-        //       at com.epam.forth.ForthEngine.defineWord(ForthEngine.java:54)
-        //       at com.epam.forth.ForthEngine.accept(ForthEngine.java:31)
+        //       at exercism.forth.ForthEngine.defineWord(ForthEngine.java:54)
+        //       at exercism.forth.ForthEngine.accept(ForthEngine.java:31)
         //   See https://diff.blue/R013 to resolve this issue.
 
         // Arrange

@@ -1,4 +1,4 @@
-package com.epam.forth;
+package exercism.forth;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 class ForthEvaluator {
     private final ForthEngine forthEngine = new ForthEngine();
 
-    public List<Integer> evaluateProgram(List<String> commands) {
+    public List<Integer> evaluateProgram(Iterable<String> commands) {
         commands.forEach(forthEngine);
         return forthEngine.get();
     }

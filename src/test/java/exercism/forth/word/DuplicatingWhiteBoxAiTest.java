@@ -1,4 +1,4 @@
-package com.epam.forth.word;
+package exercism.forth.word;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,12 +8,12 @@ import java.util.ArrayDeque;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class DuplicationWhiteBoxAiTest {
+class DuplicatingWhiteBoxAiTest {
 
     @Test
     @DisplayName("When the stack contains one value, it should be duplicated")
     void duplicatingOneValue() {
-        var duplication = new Duplication();
+        var duplication = new Duplicating();
         var stack = new ArrayDeque<Integer>();
         stack.push(10);
 
@@ -26,7 +26,7 @@ class DuplicationWhiteBoxAiTest {
     @Test
     @DisplayName("When the stack contains multiple values, the top one should be duplicated")
     void duplicatingTopValueFromMultipleValues() {
-        var duplication = new Duplication();
+        var duplication = new Duplicating();
         var stack = new ArrayDeque<Integer>();
         stack.push(30);
         stack.push(20);
@@ -41,7 +41,7 @@ class DuplicationWhiteBoxAiTest {
     @Test
     @DisplayName("An exception should be thrown when trying to duplicate a value from an empty stack")
     void throwingExceptionWhenDuplicatingFromEmpty() {
-        var duplication = new Duplication();
+        var duplication = new Duplicating();
         var stack = new ArrayDeque<Integer>();
 
         assertThatThrownBy(() -> duplication.accept(stack))

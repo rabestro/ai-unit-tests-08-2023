@@ -1,4 +1,4 @@
-package com.epam.forth.word;
+package exercism.forth.word;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -1,11 +1,11 @@
-package com.epam.forth.word;
+package exercism.forth.word;
 
 import java.util.Deque;
 
-public class Swapping implements ForthWord {
+public final class Swapping implements ForthBinaryOperator {
     @Override
     public void accept(Deque<Integer> stack) {
-        ForthWord.ensureSize(stack, 2, "Swapping requires that the stack contain at least 2 values");
+        ensureSize(stack);
         int a = stack.pop();
         int b = stack.pop();
         stack.push(a);
