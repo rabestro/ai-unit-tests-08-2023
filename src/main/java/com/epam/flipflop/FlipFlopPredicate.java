@@ -2,6 +2,8 @@ package com.epam.flipflop;
 
 import java.util.function.Predicate;
 
+import static java.util.Objects.requireNonNull;
+
 
 public final class FlipFlopPredicate<T> implements Predicate<T> {
     private final Predicate<? super T> lhs;
@@ -9,8 +11,8 @@ public final class FlipFlopPredicate<T> implements Predicate<T> {
     boolean state;
 
     public FlipFlopPredicate(Predicate<? super T> lhs, Predicate<? super T> rhs) {
-        this.lhs = lhs;
-        this.rhs = rhs;
+        this.lhs = requireNonNull(lhs);
+        this.rhs = requireNonNull(rhs);
     }
 
     @Override

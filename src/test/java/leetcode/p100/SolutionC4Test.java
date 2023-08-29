@@ -1,5 +1,6 @@
 package leetcode.p100;
 
+import leetcode.TreeNode;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

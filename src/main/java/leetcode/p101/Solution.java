@@ -1,6 +1,8 @@
 package leetcode.p101;
 
-public class Solution {
+import leetcode.TreeNode;
+
+class Solution {
     public boolean isSymmetric(TreeNode root) {
         if (root == null) {
             return true;
