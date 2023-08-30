@@ -1,10 +1,11 @@
 package leetcode.p54;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
+import static java.util.stream.IntStream.range;
 
 class Solution {
     private int rows;
@@ -22,29 +23,27 @@ class Solution {
         }
         this.matrix = matrix;
 
-        return spiralOrder(0);
+        return spiralOrder(0).boxed().toList();
     }
 
-    List<Integer> spiralOrder(int level) {
+    IntStream spiralOrder(int level) {
         if (level > rows - 1 - level || level > cols - 1 - level) {
-            return List.of();
+            return IntStream.empty();
         }
         if (level == rows - 1 - level) {
-            return stream(matrix[level], level, cols - level).boxed().toList();
+            return stream(matrix[level], level, cols - level);
         }
-        var result = new ArrayList<Integer>();
-        IntStream.range(level, cols - level)
-                .forEach(i -> result.add(matrix[level][i]));
-        IntStream.range(level + 1, rows - level)
-                .forEach(i -> result.add(matrix[i][cols - 1 - level]));
-        IntStream.range(level + 1, cols - level)
+        var top = stream(matrix[level], level, cols - level);
+        var right = range(level + 1, rows - level)
+                .map(i -> matrix[i][cols - 1 - level]);
+        var bottom = range(level + 1, cols - level)
                 .map(i -> cols - 1 - i)
-                .forEach(i -> result.add(matrix[rows - 1 - level][i]));
-
-        IntStream.range(level + 1, rows - level - 1)
+                .map(i -> matrix[rows - 1 - level][i]);
+        var left = range(level + 1, rows - level - 1)
                 .map(i -> rows - 1 - i)
-                .forEach(i -> result.add(matrix[i][level]));
-        result.addAll(spiralOrder(level + 1));
-        return result;
+                .map(i -> matrix[i][level]);
+
+        return Stream.of(top, right, bottom, left, spiralOrder(level + 1))
+                .flatMapToInt(i -> i);
     }
 }
