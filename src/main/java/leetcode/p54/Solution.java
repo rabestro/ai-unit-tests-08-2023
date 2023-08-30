@@ -33,6 +33,9 @@ class Solution {
         if (level == rows - 1 - level) {
             return stream(matrix[level], level, cols - level);
         }
+        if (level == cols - 1 - level) {
+            return range(level, rows - level).map(i -> matrix[i][level]);
+        }
         var top = stream(matrix[level], level, cols - level);
         var right = range(level + 1, rows - level)
                 .map(i -> matrix[i][cols - 1 - level]);
