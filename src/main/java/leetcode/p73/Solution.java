@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.stream.IntStream;
 
+import static java.util.stream.IntStream.range;
+
 class Solution {
     private int[][] matrix;
 
@@ -15,11 +17,11 @@ class Solution {
         var rows = new BitSet(matrix.length);
         var cols = new BitSet(matrix[0].length);
 
-        IntStream.range(0, matrix.length)
+        range(0, matrix.length)
                 .filter(r -> IntStream.of(matrix[r]).anyMatch(x -> x == 0))
                 .forEach(rows::set);
 
-        IntStream.range(0, matrix[0].length).filter(i -> {
+        range(0, matrix[0].length).filter(i -> {
             for (int[] ints : matrix) {
                 if (ints[i] == 0) {
                     return true;
@@ -28,8 +30,8 @@ class Solution {
             return false;
         }).forEach(cols::set);
 
-        IntStream.range(0, matrix.length).filter(rows::get).forEach(this::setRowToZero);
-        IntStream.range(0, matrix[0].length).filter(cols::get).forEach(this::setColToZero);
+        range(0, matrix.length).filter(rows::get).forEach(this::setRowToZero);
+        range(0, matrix[0].length).filter(cols::get).forEach(this::setColToZero);
     }
 
     private void setColToZero(int i) {
