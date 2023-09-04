@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
 public final class FlipFlopPredicate<T> implements Predicate<T> {
     private final Predicate<? super T> lhs;
     private final Predicate<? super T> rhs;
-    boolean state;
+    private boolean state;
 
     public FlipFlopPredicate(Predicate<? super T> lhs, Predicate<? super T> rhs) {
         this.lhs = requireNonNull(lhs);
