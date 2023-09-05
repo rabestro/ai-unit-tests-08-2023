@@ -59,10 +59,11 @@ class FlipFlopPredicateBlackBoxC4Test {
         );
     }
 
+    @SuppressWarnings("unused")
     @DisplayName("Test FlipFlopPredicate with various conditions and input types")
     @ParameterizedTest(name = "[{index}] {0}")
     @MethodSource("testCases")
-    <T> void testFlipFlopPredicate(String description, Predicate<T> startCondition, Predicate<T> endCondition, List<T> values, List<Boolean> expectedOutput) {
+    <T> void testFlipFlopPredicate(String description, Predicate<? super T> startCondition, Predicate<? super T> endCondition, List<T> values, List<Boolean> expectedOutput) {
         var flipFlopPredicate = new FlipFlopPredicate<>(startCondition, endCondition);
         var actualOutput = values.stream().map(flipFlopPredicate::test).toList();
 
