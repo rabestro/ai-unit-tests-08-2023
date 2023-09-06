@@ -1,17 +1,23 @@
 package com.epam.smallestvalue;
 
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
 
 @DisplayName("BlackBox C4 Test for SmallestValueFunction")
 class SmallestValueFunctionBlackBoxC4Test {
 
     @DisplayName("Happy Path test cases")
+    @Timeout(value = 100, unit = TimeUnit.MILLISECONDS)
     @ParameterizedTest(name = "[{index}] {0}: m={1} -> n={2}")
     @CsvSource(delimiter = '|', textBlock = """
             Edge case where 'm' equals 1                                        | 1                     | 2
@@ -27,6 +33,18 @@ class SmallestValueFunctionBlackBoxC4Test {
         assertThat(result)
                 .as("Smallest value that satisfied the condition for m=" + m)
                 .isEqualTo(expectedN);
+    }
+
+    @Test
+    @DisplayName("Edge case where 'm' equals Long.MAX_VALUE")
+    void mEqualsLongMaxValueTest() {
+        var smallestValueFunction = new SmallestValueFunction();
+        assertTimeout(Duration.ofSeconds(5), () -> {
+            var result = smallestValueFunction.applyAsInt(Long.MAX_VALUE);
+            assertThat(result)
+                    .as("Smallest value that satisfies the condition for m=Long.MAX_VALUE")
+                    .isEqualTo(21);
+        });
     }
 
     @Test

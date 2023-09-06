@@ -10,9 +10,12 @@ public class SmallestValueFunction implements LongToIntFunction {
             throw new IllegalArgumentException();
         }
 
-        int n = 0;
-        while (m != 0) {
-            m /= ++n;
+        int n = 1;
+        long factorial = 1;
+
+        while (factorial <= m) {
+            n++;
+            factorial *= n;
         }
         return n;
     }
