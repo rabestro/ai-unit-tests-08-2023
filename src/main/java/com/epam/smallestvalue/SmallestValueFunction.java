@@ -1,10 +1,11 @@
 package com.epam.smallestvalue;
 
-import java.util.function.LongUnaryOperator;
+import java.util.function.LongToIntFunction;
 
-public class SmallestValueFunction implements LongUnaryOperator {
+public class SmallestValueFunction implements LongToIntFunction {
+
     @Override
-    public long applyAsLong(long m) {
+    public int applyAsInt(long value) {
         return 0;
     }
 }
