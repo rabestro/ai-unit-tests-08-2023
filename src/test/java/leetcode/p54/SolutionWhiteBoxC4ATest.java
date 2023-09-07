@@ -1,5 +1,6 @@
 package leetcode.p54;
 
+import leetcode.p54.b.SolutionB;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -12,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class SolutionWhiteBoxC4ATest {
 
-    private final Solution solution = new Solution();
+    private final SolutionB solution = new SolutionB();
 
     @DisplayName("Spiral order of matrix")
     @ParameterizedTest(name = "{index}. {0}")
