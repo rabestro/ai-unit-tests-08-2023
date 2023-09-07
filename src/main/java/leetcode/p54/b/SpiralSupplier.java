@@ -21,26 +21,26 @@ public final class SpiralSupplier implements Supplier<IntStream> {
 
     @Override
     public IntStream get() {
-        return new SubMatrix(0).get();
+        return new InnerMatrix(0).get();
     }
 
-    private final class SubMatrix implements Supplier<IntStream> {
+    private final class InnerMatrix implements Supplier<IntStream> {
         private final int level;
 
-        private SubMatrix(int level) {
+        private InnerMatrix(int level) {
             this.level = level;
         }
 
-        private boolean isOneRow() {
-            return level == rows - 1 - level;
+        private int innerRows() {
+            return rows - 2 * level;
+        }
+
+        private int innerCols() {
+            return cols - 2 * level;
         }
 
         private boolean isEmpty() {
-            return level > rows - 1 - level || level > cols - 1 - level;
-        }
-
-        private boolean isOneColumn() {
-            return level == cols - 1 - level;
+            return innerRows() < 1 || innerCols() < 1;
         }
 
         private IntStream top() {
@@ -60,11 +60,12 @@ public final class SpiralSupplier implements Supplier<IntStream> {
         }
 
         private IntStream boundaries() {
-            return Stream.of(top(), right(), bottom(), left()).reduce(IntStream.empty(), IntStream::concat);
+            return Stream.of(top(), right(), bottom(), left())
+                    .reduce(IntStream.empty(), IntStream::concat);
         }
 
         private boolean isBaseCase() {
-            return isEmpty() || isOneRow() || isOneColumn();
+            return isEmpty() || innerRows() == 1 || innerCols() == 1;
         }
 
         private IntStream oneRow() {
@@ -79,7 +80,11 @@ public final class SpiralSupplier implements Supplier<IntStream> {
             if (isEmpty()) {
                 return IntStream.empty();
             }
-            return isOneRow() ? oneRow() : oneColumn();
+            return innerRows() == 1 ? oneRow() : oneColumn();
+        }
+
+        private IntStream innerMatrix() {
+            return new InnerMatrix(level + 1).get();
         }
 
         @Override
@@ -87,10 +92,7 @@ public final class SpiralSupplier implements Supplier<IntStream> {
             if (isBaseCase()) {
                 return baseCase();
             }
-
-            var subMatrix = new SubMatrix(level + 1).get();
-
-            return concat(boundaries(), subMatrix);
+            return concat(boundaries(), innerMatrix());
         }
     }
 }

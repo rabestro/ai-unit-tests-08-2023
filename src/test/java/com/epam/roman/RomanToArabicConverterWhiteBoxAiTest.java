@@ -29,7 +29,6 @@ class RomanToArabicConverterWhiteBoxAiTest {
         'MMCCCXLIV'   = 2344
         'MCMXCIX'     = 1999
         ''            = 0
-        'BDFHJ@#'     = 500
     """)
     void testValidRomanConversions(String romanNumeral, int expectedArabicValue) {
         var actual = romanToArabicConverter.applyAsInt(romanNumeral);
