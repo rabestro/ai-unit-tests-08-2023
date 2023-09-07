@@ -1,4 +1,4 @@
-package leetcode.p54;
+package leetcode.p54.b;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SolutionWhiteBoxC4Test {
+class SolutionWhiteBoxC4BTest {
 
     private final Solution solution = new Solution();
 

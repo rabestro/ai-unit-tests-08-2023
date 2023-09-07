@@ -1,4 +1,4 @@
-package leetcode.p54;
+package leetcode.p54.b;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,14 +14,6 @@ class SolutionWhiteBoxC4ATest {
 
     private final Solution solution = new Solution();
 
-    @DisplayName("Spiral order of matrix")
-    @ParameterizedTest(name = "{index}. {0}")
-    @MethodSource("spiralOrderTestCases")
-    void spiralOrder(String description, int[][] matrix, List<Integer> expectedResult) {
-        var actualResult = solution.spiralOrder(matrix);
-        assertThat(actualResult).isEqualTo(expectedResult);
-    }
-
     static Stream<Arguments> spiralOrderTestCases() {
         return Stream.of(
                 Arguments.of("Empty matrix", new int[][]{}, List.of()),
@@ -32,5 +24,13 @@ class SolutionWhiteBoxC4ATest {
                 Arguments.of("Rectangular matrix with more rows than columns", new int[][]{{1, 2}, {3, 4}, {5, 6}}, List.of(1, 2, 4, 6, 5, 3)),
                 Arguments.of("Rectangular matrix with more columns than rows", new int[][]{{1, 2, 3}, {4, 5, 6}}, List.of(1, 2, 3, 6, 5, 4))
         );
+    }
+
+    @DisplayName("Spiral order of matrix")
+    @ParameterizedTest(name = "{index}. {0}")
+    @MethodSource("spiralOrderTestCases")
+    void spiralOrder(String description, int[][] matrix, List<Integer> expectedResult) {
+        var actualResult = solution.spiralOrder(matrix);
+        assertThat(actualResult).isEqualTo(expectedResult);
     }
 }
