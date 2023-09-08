@@ -4,7 +4,7 @@ import leetcode.TreeNode;
 
 import java.util.List;
 
-class Solution {
+public class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         var result = new java.util.ArrayList<Integer>();
         inorderTraversal(root, result);

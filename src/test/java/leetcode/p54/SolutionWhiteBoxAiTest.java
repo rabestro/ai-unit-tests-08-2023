@@ -1,6 +1,6 @@
-package leetcode.p54.b;
+package leetcode.p54;
 
-import org.assertj.core.api.Assertions;
+import leetcode.p54.Solution;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

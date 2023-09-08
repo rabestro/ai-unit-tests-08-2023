@@ -27,7 +27,7 @@ class SolutionBlackBoxC4Test {
     @ParameterizedTest(name = "Test Case {index}: Matrix {0} => Spiral Order {1}")
     @MethodSource("spiralOrderTestCases")
     void spiralOrderTest(int[][] matrix, List<Integer> expectedSpiralOrder) {
-        var solution = new leetcode.p54.b.Solution();
+        var solution = new Solution();
         var actualSpiralOrder = solution.spiralOrder(matrix);
         assertThat(actualSpiralOrder)
                 .as("The spiral order of the matrix should be %s", expectedSpiralOrder)

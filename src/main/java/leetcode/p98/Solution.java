@@ -2,7 +2,7 @@ package leetcode.p98;
 
 import leetcode.TreeNode;
 
-class Solution {
+public class Solution {
     public boolean isValidBST(TreeNode root) {
         return isValidBST(root, null, null);
     }

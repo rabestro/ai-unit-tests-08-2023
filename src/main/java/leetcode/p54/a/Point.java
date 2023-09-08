@@ -1,4 +1,4 @@
-package leetcode.p54;
+package leetcode.p54.a;
 
 record Point(int x, int y) {
     Point add(Point delta) {

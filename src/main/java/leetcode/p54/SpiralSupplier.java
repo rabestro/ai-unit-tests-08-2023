@@ -1,5 +1,6 @@
-package leetcode.p54.b;
+package leetcode.p54;
 
+import java.util.Arrays;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -31,12 +32,37 @@ public final class SpiralSupplier implements Supplier<IntStream> {
             this.level = level;
         }
 
+        @Override
+        public IntStream get() {
+            if (isBaseCase()) {
+                return baseCase();
+            }
+            return concat(boundaries(), innerMatrix());
+        }
+
+        private IntStream boundaries() {
+            return Stream.of(top(), right(), bottom(), left())
+                    .reduce(IntStream.empty(), IntStream::concat);
+        }
+
+        private boolean isBaseCase() {
+            return innerRows() <= 1 || innerCols() <= 1;
+        }
+
+
+        private IntStream baseCase() {
+            if (isEmpty()) {
+                return IntStream.empty();
+            }
+            return innerRows() == 1 ? oneRow() : oneColumn();
+        }
+
         private int innerRows() {
-            return rows - 2 * level;
+            return rows - (level << 1);
         }
 
         private int innerCols() {
-            return cols - 2 * level;
+            return cols - (level << 1);
         }
 
         private boolean isEmpty() {
@@ -59,15 +85,6 @@ public final class SpiralSupplier implements Supplier<IntStream> {
             return range(level + 1, rows - level - 1).map(i -> rows - 1 - i).map(i -> matrix[i][level]);
         }
 
-        private IntStream boundaries() {
-            return Stream.of(top(), right(), bottom(), left())
-                    .reduce(IntStream.empty(), IntStream::concat);
-        }
-
-        private boolean isBaseCase() {
-            return isEmpty() || innerRows() == 1 || innerCols() == 1;
-        }
-
         private IntStream oneRow() {
             return stream(matrix[level], level, cols - level);
         }
@@ -76,23 +93,9 @@ public final class SpiralSupplier implements Supplier<IntStream> {
             return range(level, rows - level).map(i -> matrix[i][level]);
         }
 
-        private IntStream baseCase() {
-            if (isEmpty()) {
-                return IntStream.empty();
-            }
-            return innerRows() == 1 ? oneRow() : oneColumn();
-        }
-
         private IntStream innerMatrix() {
             return new InnerMatrix(level + 1).get();
         }
 
-        @Override
-        public IntStream get() {
-            if (isBaseCase()) {
-                return baseCase();
-            }
-            return concat(boundaries(), innerMatrix());
-        }
     }
 }

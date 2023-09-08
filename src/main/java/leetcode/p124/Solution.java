@@ -1,6 +1,6 @@
 package leetcode.p124;
 
-class Solution {
+public class Solution {
     int max;
 
     public int maxPathSum(TreeNode root) {

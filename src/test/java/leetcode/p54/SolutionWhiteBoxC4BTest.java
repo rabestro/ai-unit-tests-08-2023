@@ -1,5 +1,6 @@
-package leetcode.p54.b;
+package leetcode.p54;
 
+import leetcode.p54.Solution;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -10,15 +11,16 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SolutionWhiteBoxC4ATest {
+class SolutionWhiteBoxC4BTest {
 
     private final Solution solution = new Solution();
 
-    static Stream<Arguments> spiralOrderTestCases() {
+    private static Stream<Arguments> spiralOrderTestCases() {
         return Stream.of(
                 Arguments.of("Empty matrix", new int[][]{}, List.of()),
-                Arguments.of("Matrix with only one row", new int[][]{{1, 2, 3}}, List.of(1, 2, 3)),
-                Arguments.of("Matrix with only one column", new int[][]{{1}, {2}, {3}}, List.of(1, 2, 3)),
+                Arguments.of("Matrix with a single element", new int[][]{{1}}, List.of(1)),
+                Arguments.of("Matrix with a single row", new int[][]{{1, 2, 3}}, List.of(1, 2, 3)),
+                Arguments.of("Matrix with a single column", new int[][]{{1}, {2}, {3}}, List.of(1, 2, 3)),
                 Arguments.of("Square matrix with odd dimensions", new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}, List.of(1, 2, 3, 6, 9, 8, 7, 4, 5)),
                 Arguments.of("Square matrix with even dimensions", new int[][]{{1, 2}, {3, 4}}, List.of(1, 2, 4, 3)),
                 Arguments.of("Rectangular matrix with more rows than columns", new int[][]{{1, 2}, {3, 4}, {5, 6}}, List.of(1, 2, 4, 6, 5, 3)),
@@ -27,10 +29,12 @@ class SolutionWhiteBoxC4ATest {
     }
 
     @DisplayName("Spiral order of matrix")
-    @ParameterizedTest(name = "{index}. {0}")
+    @ParameterizedTest(name = "Test case {index}: {0}")
     @MethodSource("spiralOrderTestCases")
-    void spiralOrder(String description, int[][] matrix, List<Integer> expectedResult) {
-        var actualResult = solution.spiralOrder(matrix);
-        assertThat(actualResult).isEqualTo(expectedResult);
+    void spiralOrder(String description, int[][] matrix, List<Integer> expected) {
+        var actual = solution.spiralOrder(matrix);
+        assertThat(actual)
+                .as("Spiral order of matrix for %s should be %s", description, expected)
+                .isEqualTo(expected);
     }
 }
