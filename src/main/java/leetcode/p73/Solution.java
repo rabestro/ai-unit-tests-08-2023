@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.IntStream.range;
 
-class Solution {
+public class Solution {
     private int[][] matrix;
 
     public void setZeroes(int[][] matrix) {

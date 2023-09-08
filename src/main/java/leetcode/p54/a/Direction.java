@@ -1,4 +1,4 @@
-package leetcode.p54;
+package leetcode.p54.a;
 
 enum Direction {
     NORTH, EAST, SOUTH, WEST;

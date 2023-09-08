@@ -1,6 +1,6 @@
 package leetcode.p48;
 
-class Solution {
+public class Solution {
     public void rotate(int[][] matrix) {
         for (int a = matrix.length / 2 - 1; a >= 0; a--) {
             int b = matrix.length - 1 - a;
