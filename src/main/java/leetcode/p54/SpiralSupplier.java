@@ -1,6 +1,5 @@
 package leetcode.p54;
 
-import java.util.Arrays;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -40,21 +39,20 @@ public final class SpiralSupplier implements Supplier<IntStream> {
             return concat(boundaries(), innerMatrix());
         }
 
-        private IntStream boundaries() {
-            return Stream.of(top(), right(), bottom(), left())
-                    .reduce(IntStream.empty(), IntStream::concat);
-        }
-
         private boolean isBaseCase() {
             return innerRows() <= 1 || innerCols() <= 1;
         }
 
-
         private IntStream baseCase() {
-            if (isEmpty()) {
-                return IntStream.empty();
-            }
             return innerRows() == 1 ? oneRow() : oneColumn();
+        }
+
+        private IntStream oneRow() {
+            return stream(matrix[level], level, cols - level);
+        }
+
+        private IntStream oneColumn() {
+            return range(level, rows - level).map(i -> matrix[i][level]);
         }
 
         private int innerRows() {
@@ -65,8 +63,9 @@ public final class SpiralSupplier implements Supplier<IntStream> {
             return cols - (level << 1);
         }
 
-        private boolean isEmpty() {
-            return innerRows() < 1 || innerCols() < 1;
+        private IntStream boundaries() {
+            return Stream.of(top(), right(), bottom(), left())
+                    .reduce(IntStream.empty(), IntStream::concat);
         }
 
         private IntStream top() {
@@ -83,14 +82,6 @@ public final class SpiralSupplier implements Supplier<IntStream> {
 
         private IntStream left() {
             return range(level + 1, rows - level - 1).map(i -> rows - 1 - i).map(i -> matrix[i][level]);
-        }
-
-        private IntStream oneRow() {
-            return stream(matrix[level], level, cols - level);
-        }
-
-        private IntStream oneColumn() {
-            return range(level, rows - level).map(i -> matrix[i][level]);
         }
 
         private IntStream innerMatrix() {

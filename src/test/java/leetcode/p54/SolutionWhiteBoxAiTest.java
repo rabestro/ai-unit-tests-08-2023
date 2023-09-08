@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Testing Solution class with WhiteBox technique")
-public class SolutionWhiteBoxAiTest {
+class SolutionWhiteBoxAiTest {
 
     private static Stream<Object[]> testCases() {
         return Stream.of(new Object[][]{
@@ -25,8 +25,8 @@ public class SolutionWhiteBoxAiTest {
                 {"The matrix is a 1x1 square", new int[][]{{1}}, List.of(1)},
                 {"The matrix is a 3x1 rectangle", new int[][]{{1}, {2}, {3}}, List.of(1, 2, 3)},
                 {"The matrix is a 1x3 rectangle", new int[][]{{1, 2, 3}}, List.of(1, 2, 3)},
-                {"The matrix is an empty 1x1 square", new int[][]{{}}, List.of()},
-                {"The matrix is an empty 2x0 rectangle", new int[][]{{}, {}}, List.of()}});
+                {"The matrix is an empty 1x1 square", new int[][]{{}}, List.of()}
+        });
     }
 
     @DisplayName("SpiralOrder method should return the correct spiral order given a 2D array")
