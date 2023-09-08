@@ -34,7 +34,10 @@ class FizzBuzzTest {
         IntPredicate fizz = i -> i % 3 == 0;
         IntPredicate buzz = i -> i % 5 == 0;
 
-        // TODO: Create a predicate
+        // TODO: Create a predicate to extract the fizz buzz sequences
+        // The sequences starts with a number fulfill the fizz predicate
+        // and ends with a number fulfill the buzz predicate
+
         IntPredicate fizzBuzz = i -> true;
 
         var actual = spiralSupplier.get()
