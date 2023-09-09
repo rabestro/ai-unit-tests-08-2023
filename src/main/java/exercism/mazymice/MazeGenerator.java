@@ -6,7 +6,7 @@ public final class MazeGenerator {
         return new Grid(rows, columns)
                 .generateMaze()
                 .placeDoors()
-                .toString();
+                .print();
     }
 }
 

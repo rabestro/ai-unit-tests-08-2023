@@ -5,6 +5,9 @@ import java.util.EnumSet;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.IntStream.range;
+
 final class Grid {
     private final int rows;
     private final int width;
@@ -47,15 +50,8 @@ final class Grid {
         var directions = EnumSet.allOf(Direction.class);
         do {
             var direction = pickRandomDirection(directions);
-
-            var delta = switch (direction) {
-                case NORTH -> new Cell(0, -1);
-                case EAST -> new Cell(1, 0);
-                case SOUTH -> new Cell(0, 1);
-                case WEST -> new Cell(-1, 0);
-            };
-            var wall = cell.add(delta);
-            var next = wall.add(delta);
+            var wall = cell.move(direction);
+            var next = wall.move(direction);
             if (next.isValid() && next.isNotEmpty()) {
                 wall.erase();
                 generate(next);
@@ -63,6 +59,19 @@ final class Grid {
         } while (!directions.isEmpty());
     }
 
+    String print() {
+        return range(0, height)
+                .mapToObj(this::printLine)
+                .collect(joining());
+    }
+
+    private StringBuilder printLine(int x) {
+        var sb = new StringBuilder(width + 1);
+        range(0, width)
+                .map(y -> new Cell(x, y).symbol())
+                .forEach(sb::appendCodePoint);
+        return sb.append(System.lineSeparator());
+    }
 
     private final class Cell {
         final int x;
@@ -71,10 +80,6 @@ final class Grid {
         private Cell(int x, int y) {
             this.x = x;
             this.y = y;
-        }
-
-        Cell add(Cell delta) {
-            return new Cell(x + delta.x, y + delta.y);
         }
 
         boolean isValid() {
@@ -99,6 +104,15 @@ final class Grid {
 
         boolean isDoor() {
             return isEmpty() && (x == 0 || x == width - 1);
+        }
+
+        Cell move(Direction direction) {
+            return switch (direction) {
+                case NORTH -> new Cell(x, y - 1);
+                case EAST -> new Cell(x + 1, y);
+                case SOUTH -> new Cell(x, y + 1);
+                case WEST -> new Cell(x - 1, y);
+            };
         }
 
         char symbol() {
