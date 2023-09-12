@@ -44,6 +44,9 @@ public final class SpiralSupplier implements Supplier<IntStream> {
         }
 
         private IntStream baseCase() {
+            if (innerRows() < 1 || innerCols() < 1) {
+                return IntStream.empty();
+            }
             return innerRows() == 1 ? oneRow() : oneColumn();
         }
 
