@@ -4,6 +4,7 @@ import java.util.BitSet;
 import java.util.EnumSet;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.random.RandomGenerator;
 
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.IntStream.range;
@@ -13,12 +14,14 @@ final class Grid {
     private final int width;
     private final int height;
     private final BitSet grid;
+    private final RandomGenerator randomGenerator;
 
-    Grid(int rows, int columns) {
+    Grid(int rows, int columns, RandomGenerator randomGenerator) {
         this.rows = rows;
         this.width = 2 * columns + 1;
         this.height = 2 * rows + 1;
         this.grid = new BitSet(width * height);
+        this.randomGenerator = randomGenerator;
     }
 
     Grid generateMaze() {
@@ -27,7 +30,7 @@ final class Grid {
     }
 
     private int random(int bound) {
-        return ThreadLocalRandom.current().nextInt(bound);
+        return randomGenerator.nextInt(bound);
     }
 
     private Direction pickRandomDirection(Set<Direction> directions) {
