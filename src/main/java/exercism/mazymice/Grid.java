@@ -122,10 +122,10 @@ final class Grid {
             if (isEmpty()) {
                 return ' ';
             }
-            var n = x > 0 ? new Cell(x - 1, y).isNotEmpty() ? 1 : 0 : 0;
-            var e = y < width - 1 ? new Cell(x, y + 1).isNotEmpty() ? 1 : 0 : 0;
-            var s = x < height - 1 ? new Cell(x + 1, y).isNotEmpty() ? 1 : 0 : 0;
-            var w = y > 0 ? new Cell(x, y - 1).isNotEmpty() ? 1 : 0 : 0;
+            var n = x > 0 && new Cell(x - 1, y).isNotEmpty() ? 1 : 0;
+            var e = y < width - 1 && new Cell(x, y + 1).isNotEmpty() ? 1 : 0;
+            var s = x < height - 1 && new Cell(x + 1, y).isNotEmpty() ? 1 : 0;
+            var w = y > 0 && new Cell(x, y - 1).isNotEmpty() ? 1 : 0;
             var i = n + 2 * e + 4 * s + 8 * w;
             return switch (i) {
                 case 0 -> ' ';
