@@ -103,7 +103,7 @@ final class Grid {
         }
 
         boolean isDoor() {
-            return isEmpty() && (x == 0 || x == width - 1);
+            return isEmpty() && (y == 0 || y == width - 1);
         }
 
         Cell move(Direction direction) {
@@ -116,27 +116,32 @@ final class Grid {
         }
 
         char symbol() {
-            if (isEmpty()) {
-                return ' ';
-            }
             if (isDoor()) {
                 return '⇨';
             }
-            return '#';
+            if (isEmpty()) {
+                return ' ';
+            }
+            var n = x > 0 && new Cell(x - 1, y).isNotEmpty() ? 1 : 0;
+            var e = y < width - 1 && new Cell(x, y + 1).isNotEmpty() ? 1 : 0;
+            var s = x < height - 1 && new Cell(x + 1, y).isNotEmpty() ? 1 : 0;
+            var w = y > 0 && new Cell(x, y - 1).isNotEmpty() ? 1 : 0;
+            var i = n + 2 * e + 4 * s + 8 * w;
+            return switch (i) {
+                case 0 -> ' ';
+                case 1, 5, 4 -> '│';
+                case 2, 8, 10 -> '─';
+                case 3 -> '└';
+                case 6 -> '┌';
+                case 7 -> '├';
+                case 9 -> '┘';
+                case 11 -> '┴';
+                case 12 -> '┐';
+                case 13 -> '┤';
+                case 14 -> '┬';
+                case 15 -> '┼';
+                default -> throw new IllegalStateException("Unexpected value: " + i);
+            };
         }
     }
 }
-    /*
-    function symbol(row, col,   n,e,s,w) {
-    if (!Grid[row, col]) return " "
-    if (is_door(row, col)) return "⇨"
-    n = row ? Grid[row - 1, col] : 0
-    e = col < Width - 1 ? Grid[row, col + 1] : 0
-    s = row < Height - 1 ? Grid[row + 1, col] : 0
-    w = col ? Grid[row, col - 1] : 0
-    return substr(" │─└││┌├─┘─┴┐┤┬┼", 1 + n + 2 * e + 4 * s + 8 * w, 1)
-}
-
-function is_door(row, col) {return row == MazeEntrance && col == 0 || row == MazeExit && col == Width - 1}
-
-     */

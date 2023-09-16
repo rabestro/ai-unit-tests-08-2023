@@ -9,7 +9,7 @@ class MazeGeneratorTest {
     @Test
     void generatePerfectMaze() {
         var sut = new MazeGenerator();
-        var maze = sut.generatePerfectMaze(5, 10);
+        var maze = sut.generatePerfectMaze(6, 18);
 
         System.out.println(maze);
     }
