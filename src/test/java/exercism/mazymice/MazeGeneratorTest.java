@@ -10,11 +10,13 @@ import java.util.OptionalInt;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MazeGeneratorTest {
+    private static final Dimension SMALL_SQUARE = new Dimension(5, 5);
+    private static final Dimension RECTANGLE = new Dimension(6, 18);
 
     @Test
     void generatePerfectMaze() {
         var sut = new MazeGenerator();
-        var maze = sut.generatePerfectMaze(6, 18);
+        var maze = sut.generatePerfectMaze(RECTANGLE);
 
         System.out.println(maze);
     }
@@ -23,8 +25,8 @@ class MazeGeneratorTest {
     @DisplayName("Two mazes should not be equal")
     void twoMazesShouldNotBeEqual() {
         var sut = new MazeGenerator();
-        var maze1 = sut.generatePerfectMaze(6, 18);
-        var maze2 = sut.generatePerfectMaze(6, 18);
+        var maze1 = sut.generatePerfectMaze(RECTANGLE);
+        var maze2 = sut.generatePerfectMaze(RECTANGLE);
 
         assertThat(maze1)
                 .as("Two mazes should not be equal")
@@ -35,8 +37,8 @@ class MazeGeneratorTest {
     @DisplayName("Two mazes with the same seed should be equal")
     void twoMazesWithSameSeedShouldBeEqual() {
         var sut = new MazeGenerator();
-        var maze1 = sut.generatePerfectMaze(6, 18, 42);
-        var maze2 = sut.generatePerfectMaze(6, 18, 42);
+        var maze1 = sut.generatePerfectMaze(RECTANGLE, 42);
+        var maze2 = sut.generatePerfectMaze(RECTANGLE, 42);
 
         assertThat(maze1)
                 .as("Two mazes with the same seed should be equal")
@@ -47,8 +49,8 @@ class MazeGeneratorTest {
     @DisplayName("Two mazes with different seeds should not be equal")
     void twoMazesWithDifferentSeedsShouldNotBeEqual() {
         var sut = new MazeGenerator();
-        var maze1 = sut.generatePerfectMaze(6, 18, 42);
-        var maze2 = sut.generatePerfectMaze(6, 18, 43);
+        var maze1 = sut.generatePerfectMaze(RECTANGLE, 42);
+        var maze2 = sut.generatePerfectMaze(RECTANGLE, 43);
 
         assertThat(maze1)
                 .as("Two mazes with different seeds should not be equal")
@@ -62,9 +64,9 @@ class MazeGeneratorTest {
             """)
     void theMazeShouldBePerfect(int rows, int columns, int seed) {
         var sut = new MazeGenerator();
-        var maze = sut.generatePerfectMaze(rows, columns, seed);
-        var parameters = new MazeParameters(rows, columns, seed, maze);
-        var error = new MazeChecker(parameters).get();
+        var dimension = new Dimension(rows, columns);
+        var maze = sut.generatePerfectMaze(dimension, seed);
+        var error = new MazeChecker(dimension, maze).get();
 
         assertThat(error)
                 .as(error.orElse("The maze should be perfect"))
