@@ -5,15 +5,15 @@ import java.util.random.RandomGenerator;
 
 public final class MazeGenerator {
 
-    public String generatePerfectMaze(int rows, int columns) {
-        return new Grid(rows, columns, RandomGenerator.getDefault())
+    public String generatePerfectMaze(Dimension dimension) {
+        return new Grid(dimension.rows(), dimension.columns(), RandomGenerator.getDefault())
                 .generateMaze()
                 .placeDoors()
                 .print();
     }
 
-    public String generatePerfectMaze(int rows, int columns, int seed) {
-        return new Grid(rows, columns, new Random(seed))
+    public String generatePerfectMaze(Dimension dimension, int seed) {
+        return new Grid(dimension.rows(), dimension.columns(), new Random(seed))
                 .generateMaze()
                 .placeDoors()
                 .print();

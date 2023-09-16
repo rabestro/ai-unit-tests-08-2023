@@ -3,7 +3,7 @@ package exercism.mazymice;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public record MazeChecker(MazeParameters maze) implements Supplier<Optional<String>> {
+public record MazeChecker(Dimension dimension, String maze) implements Supplier<Optional<String>> {
 
     private Optional<String> dimensions() {
         return Optional.empty();
