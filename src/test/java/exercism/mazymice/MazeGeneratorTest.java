@@ -57,7 +57,7 @@ class MazeGeneratorTest {
                 .isNotEqualTo(maze2);
     }
 
-    @DisplayName("Small square maze with seed 42")
+    @DisplayName("Small square grid with seed 42")
     @ParameterizedTest(name = "Maze with {0} rows and {1} columns should be perfect")
     @CsvSource(textBlock = """
             5, 5, 42
@@ -69,7 +69,7 @@ class MazeGeneratorTest {
         var error = new MazeChecker(dimension, maze).get();
 
         assertThat(error)
-                .as(error.orElse("The maze should be perfect"))
+                .as(error.orElse("The grid should be perfect"))
                 .isEmpty();
 
     }

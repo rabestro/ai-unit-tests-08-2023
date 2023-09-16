@@ -3,24 +3,19 @@ package exercism.mazymice;
 import java.util.BitSet;
 import java.util.EnumSet;
 import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.IntStream.range;
 
 final class Grid {
-    private final int rows;
-    private final int width;
-    private final int height;
+    private final Dimension dimension;
     private final BitSet grid;
     private final RandomGenerator randomGenerator;
 
-    Grid(int rows, int columns, RandomGenerator randomGenerator) {
-        this.rows = rows;
-        this.width = 2 * columns + 1;
-        this.height = 2 * rows + 1;
-        this.grid = new BitSet(width * height);
+    Grid(Dimension dimension, RandomGenerator randomGenerator) {
+        this.dimension = dimension;
+        this.grid = new BitSet(dimension.width() * dimension.height());
         this.randomGenerator = randomGenerator;
     }
 
@@ -42,8 +37,8 @@ final class Grid {
     }
 
     Grid placeDoors() {
-        new Cell(1 + 2 * random(rows), 0).erase();
-        new Cell(1 + 2 * random(rows), width - 1).erase();
+        new Cell(1 + 2 * random(dimension.rows()), 0).erase();
+        new Cell(1 + 2 * random(dimension.rows()), dimension.width() - 1).erase();
         return this;
     }
 
@@ -63,14 +58,14 @@ final class Grid {
     }
 
     String print() {
-        return range(0, height)
+        return range(0, dimension.height())
                 .mapToObj(this::printLine)
                 .collect(joining());
     }
 
     private StringBuilder printLine(int x) {
-        var sb = new StringBuilder(width + 1);
-        range(0, width)
+        var sb = new StringBuilder(dimension.width() + 1);
+        range(0, dimension.width())
                 .map(y -> new Cell(x, y).symbol())
                 .forEach(sb::appendCodePoint);
         return sb.append(System.lineSeparator());
@@ -86,7 +81,7 @@ final class Grid {
         }
 
         boolean isValid() {
-            return x > 0 && x < height && y > 0 && y < width;
+            return x > 0 && x < dimension.height() && y > 0 && y < dimension.width();
         }
 
         void erase() {
@@ -102,11 +97,11 @@ final class Grid {
         }
 
         int index() {
-            return x * width + y;
+            return x * dimension.width() + y;
         }
 
         boolean isDoor() {
-            return isEmpty() && (y == 0 || y == width - 1);
+            return isEmpty() && (y == 0 || y == dimension.width() - 1);
         }
 
         Cell move(Direction direction) {
@@ -126,8 +121,8 @@ final class Grid {
                 return ' ';
             }
             var n = x > 0 && new Cell(x - 1, y).isNotEmpty() ? 1 : 0;
-            var e = y < width - 1 && new Cell(x, y + 1).isNotEmpty() ? 1 : 0;
-            var s = x < height - 1 && new Cell(x + 1, y).isNotEmpty() ? 1 : 0;
+            var e = y < dimension.width() - 1 && new Cell(x, y + 1).isNotEmpty() ? 1 : 0;
+            var s = x < dimension.height() - 1 && new Cell(x + 1, y).isNotEmpty() ? 1 : 0;
             var w = y > 0 && new Cell(x, y - 1).isNotEmpty() ? 1 : 0;
             var i = n + 2 * e + 4 * s + 8 * w;
             return switch (i) {
