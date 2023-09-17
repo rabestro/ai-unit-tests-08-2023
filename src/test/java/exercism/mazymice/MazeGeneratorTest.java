@@ -104,4 +104,25 @@ class MazeGeneratorTest {
             }
         }
     }
+
+    @Test
+    @DisplayName("The maze has only one entrance on the left side")
+    void theMazeHasOnlyOneEntranceOnTheLeftSide() {
+        var maze = sut.generatePerfectMaze(RECTANGLE);
+        int entranceCount = countEntrances(maze);
+
+        assertThat(entranceCount)
+                .as("The maze has only one entrance on the left side")
+                .isOne();
+    }
+
+    private int countEntrances(char[][] maze) {
+        int entranceCount = 0;
+        for (char[] row : maze) {
+            if (row[0] == '⇨') {
+                entranceCount++;
+            }
+        }
+        return entranceCount;
+    }
 }
