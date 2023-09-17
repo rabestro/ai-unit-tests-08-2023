@@ -155,18 +155,6 @@ class MazeGeneratorTest {
         }
     }
 
-    private int countPaths(char[][] maze) {
-        int pathCount = 0;
-        for (char[] row : maze) {
-            for (char cell : row) {
-                if (cell == '⇨') {
-                    pathCount++;
-                }
-            }
-        }
-        return pathCount;
-    }
-
     private int countExits(char[][] maze) {
         int exitCount = 0;
         for (char[] row : maze) {
