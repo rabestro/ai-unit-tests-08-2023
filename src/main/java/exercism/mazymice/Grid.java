@@ -57,18 +57,18 @@ final class Grid {
         } while (!directions.isEmpty());
     }
 
-    String print() {
+    char[][] print() {
         return range(0, dimension.height())
-                .mapToObj(this::printLine)
-                .collect(joining());
+                .mapToObj(this::line)
+                .toArray(char[][]::new);
     }
 
-    private StringBuilder printLine(int x) {
-        var sb = new StringBuilder(dimension.width() + 1);
-        range(0, dimension.width())
+    private char[] line(int x) {
+        return range(0, dimension.width())
                 .map(y -> new Cell(x, y).symbol())
-                .forEach(sb::appendCodePoint);
-        return sb.append(System.lineSeparator());
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString()
+                .toCharArray();
     }
 
     private final class Cell {

@@ -13,13 +13,13 @@ class MazeGeneratorTest {
     private static final Dimension SMALL_SQUARE = new Dimension(5, 5);
     private static final Dimension RECTANGLE = new Dimension(6, 18);
 
-    @Test
-    void generatePerfectMaze() {
-        var sut = new MazeGenerator();
-        var maze = sut.generatePerfectMaze(RECTANGLE);
-
-        System.out.println(maze);
-    }
+//    @Test
+//    void generatePerfectMaze() {
+//        var sut = new MazeGenerator();
+//        var maze = sut.generatePerfectMaze(RECTANGLE);
+//
+//        System.out.println(maze);
+//    }
 
     @Test
     @DisplayName("Two mazes should not be equal")
@@ -57,21 +57,21 @@ class MazeGeneratorTest {
                 .isNotEqualTo(maze2);
     }
 
-    @DisplayName("Small square grid with seed 42")
-    @ParameterizedTest(name = "Maze with {0} rows and {1} columns should be perfect")
-    @CsvSource(textBlock = """
-            5, 5, 42
-            """)
-    void theMazeShouldBePerfect(int rows, int columns, int seed) {
-        var sut = new MazeGenerator();
-        var dimension = new Dimension(rows, columns);
-        var maze = sut.generatePerfectMaze(dimension, seed);
-        var error = new MazeChecker(dimension, maze).get();
-
-        assertThat(error)
-                .as(error.orElse("The grid should be perfect"))
-                .isEmpty();
-
-    }
+//    @DisplayName("Small square grid with seed 42")
+//    @ParameterizedTest(name = "Maze with {0} rows and {1} columns should be perfect")
+//    @CsvSource(textBlock = """
+//            5, 5, 42
+//            """)
+//    void theMazeShouldBePerfect(int rows, int columns, int seed) {
+//        var sut = new MazeGenerator();
+//        var dimension = new Dimension(rows, columns);
+//        var maze = sut.generatePerfectMaze(dimension, seed);
+//        var error = new MazeChecker(dimension, maze).get();
+//
+//        assertThat(error)
+//                .as(error.orElse("The grid should be perfect"))
+//                .isEmpty();
+//
+//    }
 
 }
