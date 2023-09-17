@@ -7,7 +7,7 @@ package exercism.mazymice;
  * Rows and columns are used for cells, while width and height are used for characters.
  */
 @SuppressWarnings("java:S109")
-public record Dimension(int rows, int columns) {
+public record Dimensions(int rows, int columns) {
     /**
      * Returns the width of the grid.
      *
