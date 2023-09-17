@@ -5,17 +5,16 @@ import java.util.EnumSet;
 import java.util.Set;
 import java.util.random.RandomGenerator;
 
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.IntStream.range;
 
 final class Grid {
-    private final Dimension dimension;
+    private final Dimensions dimensions;
     private final BitSet grid;
     private final RandomGenerator randomGenerator;
 
-    Grid(Dimension dimension, RandomGenerator randomGenerator) {
-        this.dimension = dimension;
-        this.grid = new BitSet(dimension.width() * dimension.height());
+    Grid(Dimensions dimensions, RandomGenerator randomGenerator) {
+        this.dimensions = dimensions;
+        this.grid = new BitSet(dimensions.width() * dimensions.height());
         this.randomGenerator = randomGenerator;
     }
 
@@ -37,8 +36,8 @@ final class Grid {
     }
 
     Grid placeDoors() {
-        new Cell(1 + 2 * random(dimension.rows()), 0).erase();
-        new Cell(1 + 2 * random(dimension.rows()), dimension.width() - 1).erase();
+        new Cell(1 + 2 * random(dimensions.rows()), 0).erase();
+        new Cell(1 + 2 * random(dimensions.rows()), dimensions.width() - 1).erase();
         return this;
     }
 
@@ -58,13 +57,13 @@ final class Grid {
     }
 
     char[][] print() {
-        return range(0, dimension.height())
+        return range(0, dimensions.height())
                 .mapToObj(this::line)
                 .toArray(char[][]::new);
     }
 
     private char[] line(int x) {
-        return range(0, dimension.width())
+        return range(0, dimensions.width())
                 .map(y -> new Cell(x, y).symbol())
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString()
@@ -81,7 +80,7 @@ final class Grid {
         }
 
         boolean isValid() {
-            return x > 0 && x < dimension.height() && y > 0 && y < dimension.width();
+            return x > 0 && x < dimensions.height() && y > 0 && y < dimensions.width();
         }
 
         void erase() {
@@ -97,11 +96,11 @@ final class Grid {
         }
 
         int index() {
-            return x * dimension.width() + y;
+            return x * dimensions.width() + y;
         }
 
         boolean isDoor() {
-            return isEmpty() && (y == 0 || y == dimension.width() - 1);
+            return isEmpty() && (y == 0 || y == dimensions.width() - 1);
         }
 
         Cell move(Direction direction) {
@@ -121,8 +120,8 @@ final class Grid {
                 return ' ';
             }
             var n = x > 0 && new Cell(x - 1, y).isNotEmpty() ? 1 : 0;
-            var e = y < dimension.width() - 1 && new Cell(x, y + 1).isNotEmpty() ? 1 : 0;
-            var s = x < dimension.height() - 1 && new Cell(x + 1, y).isNotEmpty() ? 1 : 0;
+            var e = y < dimensions.width() - 1 && new Cell(x, y + 1).isNotEmpty() ? 1 : 0;
+            var s = x < dimensions.height() - 1 && new Cell(x + 1, y).isNotEmpty() ? 1 : 0;
             var w = y > 0 && new Cell(x, y - 1).isNotEmpty() ? 1 : 0;
             var i = n + 2 * e + 4 * s + 8 * w;
             return switch (i) {
