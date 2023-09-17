@@ -11,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MazeGeneratorTest {
     private static final char EMPTY_CELL = ' ';
-    private static final char VISITED_CELL = '.';
     private static final Set<Character> ALLOWED_SYMBOLS = Set.of(
             EMPTY_CELL, // space
             '┌', // box drawings light down and right
@@ -27,6 +26,7 @@ class MazeGeneratorTest {
             '┼', // box drawings light vertical and horizontal
             '⇨'  // rightwards white arrow
     );
+    private static final char VISITED_CELL = '.';
     private static final Dimensions SMALL_SQUARE = new Dimensions(5, 5);
     private static final Dimensions RECTANGLE = new Dimensions(6, 18);
     private MazeGenerator sut;
@@ -130,12 +130,20 @@ class MazeGeneratorTest {
     }
 
     @Test
-    @DisplayName("The generated Labyrinth is perfect")
+    @DisplayName("The generated maze is perfect")
     void aPerfectMazeHasOnlyOneCorrectPath() {
         var maze = sut.generatePerfectMaze(RECTANGLE);
 
+        assertThat(maze)
+                .as("The dimensions of the maze are correct.")
+                .hasDimensions(RECTANGLE.height(), RECTANGLE.width());
+
+        assertThatMazeHasSinglePath(maze);
+        assertThatMazeHasNoIsolatedSections(maze);
+    }
+
+    private void assertThatMazeHasSinglePath(char[][] maze) {
         assertMazeHasSinglePath(maze, 1, 1);
-        assertNoIsolatedSectionsInMaze(maze);
     }
 
     private void assertMazeHasSinglePath(char[][] maze, int x, int y) {
@@ -156,7 +164,7 @@ class MazeGeneratorTest {
         }
     }
 
-    private void assertNoIsolatedSectionsInMaze(char[][] maze) {
+    private void assertThatMazeHasNoIsolatedSections(char[][] maze) {
         for (int row = 1; row < maze.length; row += 2) {
             for (int col = 1; col < maze[row].length; col += 2) {
                 assertThat(maze[row][col])
