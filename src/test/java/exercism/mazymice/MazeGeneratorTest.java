@@ -5,13 +5,28 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MazeGeneratorTest {
+    public static final Set<Character> ALLOWED_SYMBOLS = Set.of(
+            ' ', // space
+            '┌', // box drawings light down and right
+            '─', // box drawings light horizontal
+            '┬', // box drawings light down and horizontal
+            '┐', // box drawings light down and left
+            '│', // box drawings light vertical
+            '└', // box drawings light up and right
+            '┴', // box drawings light up and horizontal
+            '┘', // box drawings light up and left
+            '├', // box drawings light vertical and right
+            '┤', // box drawings light vertical and left
+            '┼', // box drawings light vertical and horizontal
+            '⇨'  // rightwards white arrow
+    );
     private static final Dimensions SMALL_SQUARE = new Dimensions(5, 5);
     private static final Dimensions RECTANGLE = new Dimensions(6, 18);
-
     private MazeGenerator sut;
 
     @BeforeEach
@@ -74,5 +89,19 @@ class MazeGeneratorTest {
         assertThat(maze1)
                 .as("Two mazes with different seeds should not be equal")
                 .isNotEqualTo(maze2);
+    }
+
+    @Test
+    @DisplayName("The maze contains only valid characters")
+    void theMazeContainsOnlyValidCharacters() {
+        var maze = sut.generatePerfectMaze(RECTANGLE);
+
+        for (var row : maze) {
+            for (var cell : row) {
+                assertThat(cell)
+                        .as("The maze contains only valid characters")
+                        .isIn(ALLOWED_SYMBOLS);
+            }
+        }
     }
 }
