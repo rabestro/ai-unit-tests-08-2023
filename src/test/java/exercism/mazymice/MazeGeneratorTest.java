@@ -130,14 +130,15 @@ class MazeGeneratorTest {
     }
 
     @Test
-    @DisplayName("A perfect maze has a single path")
+    @DisplayName("The generated Labyrinth is perfect")
     void aPerfectMazeHasOnlyOneCorrectPath() {
         var maze = sut.generatePerfectMaze(RECTANGLE);
 
-        checkPaths(maze, 1, 1);
+        assertMazeHasSinglePath(maze, 1, 1);
+        assertNoIsolatedSectionsInMaze(maze);
     }
 
-    private void checkPaths(char[][] maze, int x, int y) {
+    private void assertMazeHasSinglePath(char[][] maze, int x, int y) {
         var isEmptyCell = maze[x][y] == EMPTY_CELL;
 
         assertThat(isEmptyCell)
@@ -150,7 +151,18 @@ class MazeGeneratorTest {
         for (var direction : Direction.values()) {
             if (maze[x + direction.dx()][y + direction.dy()] == EMPTY_CELL) {
                 maze[x + direction.dx()][y + direction.dy()] = VISITED_CELL;
-                checkPaths(maze, x + 2 * direction.dx(), y + 2 * direction.dy());
+                assertMazeHasSinglePath(maze, x + 2 * direction.dx(), y + 2 * direction.dy());
+            }
+        }
+    }
+
+    private void assertNoIsolatedSectionsInMaze(char[][] maze) {
+        for (int row = 1; row < maze.length; row += 2) {
+            for (int col = 1; col < maze[row].length; col += 2) {
+                assertThat(maze[row][col])
+                        .as("The maze has no isolated sections")
+                        .withFailMessage("an isolated section detected at (%d, %d)", row, col)
+                        .isEqualTo(VISITED_CELL);
             }
         }
     }
