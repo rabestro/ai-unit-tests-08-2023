@@ -116,6 +116,27 @@ class MazeGeneratorTest {
                 .isOne();
     }
 
+    @Test
+    @DisplayName("The maze has a single exit on the right side of the maze")
+    void theMazeHasASingleExitOnTheRightSideOfTheMaze() {
+        var maze = sut.generatePerfectMaze(RECTANGLE);
+        int exitCount = countExits(maze);
+
+        assertThat(exitCount)
+                .as("The maze has a single exit on the right side of the maze")
+                .isOne();
+    }
+
+    private int countExits(char[][] maze) {
+        int exitCount = 0;
+        for (char[] row : maze) {
+            if (row[row.length - 1] == '⇨') {
+                exitCount++;
+            }
+        }
+        return exitCount;
+    }
+
     private int countEntrances(char[][] maze) {
         int entranceCount = 0;
         for (char[] row : maze) {
