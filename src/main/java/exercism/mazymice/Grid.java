@@ -71,14 +71,6 @@ final class Grid {
                 .toCharArray();
     }
 
-    private StringBuilder printLine(int x) {
-        var sb = new StringBuilder(dimension.width() + 1);
-        range(0, dimension.width())
-                .map(y -> new Cell(x, y).symbol())
-                .forEach(sb::appendCodePoint);
-        return sb.append(System.lineSeparator());
-    }
-
     private final class Cell {
         final int x;
         final int y;
@@ -121,7 +113,7 @@ final class Grid {
             };
         }
 
-        Character symbol() {
+        char symbol() {
             if (isDoor()) {
                 return '⇨';
             }
