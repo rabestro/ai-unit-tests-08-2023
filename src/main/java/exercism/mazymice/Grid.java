@@ -104,12 +104,7 @@ final class Grid {
         }
 
         Cell move(Direction direction) {
-            return switch (direction) {
-                case NORTH -> new Cell(x, y - 1);
-                case EAST -> new Cell(x + 1, y);
-                case SOUTH -> new Cell(x, y + 1);
-                case WEST -> new Cell(x - 1, y);
-            };
+            return new Cell(x + direction.dx(), y + direction.dy());
         }
 
         char symbol() {

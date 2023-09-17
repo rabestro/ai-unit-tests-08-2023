@@ -10,8 +10,10 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MazeGeneratorTest {
-    public static final Set<Character> ALLOWED_SYMBOLS = Set.of(
-            ' ', // space
+    private static final char EMPTY_CELL = ' ';
+    private static final char VISITED_CELL = '.';
+    private static final Set<Character> ALLOWED_SYMBOLS = Set.of(
+            EMPTY_CELL, // space
             '┌', // box drawings light down and right
             '─', // box drawings light horizontal
             '┬', // box drawings light down and horizontal
@@ -125,6 +127,44 @@ class MazeGeneratorTest {
         assertThat(exitCount)
                 .as("The maze has a single exit on the right side of the maze")
                 .isOne();
+    }
+
+    @Test
+    @DisplayName("A perfect maze has a single path")
+    void aPerfectMazeHasOnlyOneCorrectPath() {
+        var maze = sut.generatePerfectMaze(RECTANGLE);
+
+        checkPaths(maze, 1, 1);
+    }
+
+    private void checkPaths(char[][] maze, int x, int y) {
+        var isEmptyCell = maze[x][y] == EMPTY_CELL;
+
+        assertThat(isEmptyCell)
+                .as("The maze has only one path")
+                .withFailMessage("an extra passage detected at (%d, %d)", x, y)
+                .isTrue();
+
+        maze[x][y] = VISITED_CELL;
+
+        for (var direction : Direction.values()) {
+            if (maze[x + direction.dx()][y + direction.dy()] == EMPTY_CELL) {
+                maze[x + direction.dx()][y + direction.dy()] = VISITED_CELL;
+                checkPaths(maze, x + 2 * direction.dx(), y + 2 * direction.dy());
+            }
+        }
+    }
+
+    private int countPaths(char[][] maze) {
+        int pathCount = 0;
+        for (char[] row : maze) {
+            for (char cell : row) {
+                if (cell == '⇨') {
+                    pathCount++;
+                }
+            }
+        }
+        return pathCount;
     }
 
     private int countExits(char[][] maze) {
